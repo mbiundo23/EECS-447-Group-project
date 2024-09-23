@@ -92,15 +92,25 @@ Contact Information:
 - KU email: karsten_wolter@ku.edu
 
 ## Humza Qureshi
-Role: 
+Role: Team database Architect
 
 Availability: 
+Fridays, Saturdays, Sundays, and Mondays
 
 Computing Platform Experience: 
+- Python
+- C
+- HTML
+- Javascript
+- SQL
+  
 
 Programming Language Knowledge:
+- Windows
+- Linux
 
 Contact Information: 
+- KU email: haqureshi@ku.edu
 
   
 # Weekly meetings
@@ -108,9 +118,13 @@ _Decide on weekly meeting details: Provide the location, schedule, and methods f
 Note: Each team member must contribute to the project and complete assigned tasks. Regular attendance at team meetings is mandatory.
 Communication and collaboration are essential for project success. Adhere to project deadlines and guidelines._
 
-Location: 
+Location: Anshuctz Library
 
-Schedule: 
+Schedule: Thursday and Friday nights @ 7pm - TBD. 
 
 Methods for task allocation and tracking: 
+
+  One method for task allocation and tracking would be a shared excel spreadsheet with hours logged and assigned tasks completed. This would be a dynamic spreadsheet as to where when changes are made, team members are notified. 
+  
+  Another method for task allocation would be to use already widely use applications such as Microsoft Teams or other platforms that allow for team communication. 
 
