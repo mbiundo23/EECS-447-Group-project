@@ -36,7 +36,7 @@ Computing Platform Experience:
 -Unix-based OS
 
 Programming Language Knowledge:
-- Moderate Python experience
+- Extensive Python experience
 - Moderate C++ experience
 - Moderate C experience
 - Moderate HTML/CSS/JS experience
