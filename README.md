@@ -87,6 +87,7 @@ Programming Language Knowledge:
 - HTML
 - Javascript
 - SQL
+  
 Contact Information: 
 - KU email: karsten_wolter@ku.edu
 
