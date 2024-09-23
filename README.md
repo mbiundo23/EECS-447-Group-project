@@ -44,11 +44,20 @@ Role:
 Availability: 
 
 Computing Platform Experience: 
+- Windows OS
+- Unix-based OS
 
 Programming Language Knowledge:
+- Python 
+- Lua 
+- Moderate C++ experience
+- Moderate C experience
+- Novice HTML/CSS/JS experience
+- Novice SQL experience
+- Novice Haskell experience
 
 Contact Information: 
-
+- KU email: simentalma@ku.edu
 
 ## Samuel Buehler
 Role: 
