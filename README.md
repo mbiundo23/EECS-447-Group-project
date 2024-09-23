@@ -31,11 +31,17 @@ Role:
 
 Availability: 
 
-Computing Platform Experience: 
+Computing Platform Experience:
+-Windows OS
+-Unix-based OS
 
 Programming Language Knowledge:
+-Extensive Python experience
+-Moderate C/C++ experience
+-Moderate SQL experience
+-Moderate JS/HTML/CSS experience
 
-Contact Information: 
+Contact Information: andrewvander02@ku.edu
 
 
 ## Mario Simental
