@@ -36,10 +36,13 @@ Computing Platform Experience:
 -Unix-based OS
 
 Programming Language Knowledge:
--Extensive Python experience
--Moderate C/C++ experience
--Moderate SQL experience
--Moderate JS/HTML/CSS experience
+- Moderate Python experience
+- Moderate C++ experience
+- Moderate C experience
+- Moderate HTML/CSS/JS experience
+- Moderate SQL experience
+- Novice Haskell experience
+
 
 Contact Information: andrewvander02@ku.edu
 
