@@ -54,6 +54,11 @@ Contact Information:
 Role: 
 
 Availability: 
+- Tuesdays/Thursdays: 12:15pm - 12:50pm, 4:00pm - 10:00pm (virtual)
+- Wednesdays: 4:00pm - 5:00pm, 5:00pm - 10:00 pm (virtual)
+- Fridays: 5:00pm - 8:00pm (virtual)
+- Saturdays/Sundays: mixed availability; Virtual unless given a few days notice.
+I can largely meet 
 
 Computing Platform Experience
 - Extensive Windows experience
@@ -68,6 +73,8 @@ Programming Language Knowledge:
 - Extensive Python experience
 - Novice HTML/CSS experience
 - Novice SQL experience
+- Moderate Java experience
+- Novice Haskell experience
 
 Contact Information: 
 - KU email: samuel.buehler@ku.edu
