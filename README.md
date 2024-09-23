@@ -78,11 +78,17 @@ Role:
 Availability: 
 
 Computing Platform Experience: 
+- Windows
+- Linux
 
 Programming Language Knowledge:
-
+- C
+- Python
+- HTML
+- Javascript
+- SQL
 Contact Information: 
-
+- KU email: karsten_wolter@ku.edu
 
 ## Humza Qureshi
 Role: 
