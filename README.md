@@ -52,7 +52,7 @@ Programming Language Knowledge:
 - Lua 
 - Moderate C++ experience
 - Moderate C experience
-- Novice HTML/CSS/JS experience
+- Novice HTML/CSS/JS/PHP experience
 - Novice SQL experience
 - Novice Haskell experience
 
