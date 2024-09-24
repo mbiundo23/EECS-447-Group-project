@@ -18,12 +18,20 @@ Team member profiles should include: names, contact information, availability, c
 Role: Team Administrator
 
 Availability: 
-
+Mon/Wed: 1:00PM-10:00PM 
+Tues/Thurs: 3:00PM-10:00PM
+Fri/Sat/Sun: as needed
 Computing Platform Experience: 
-
+Moderate Windows experience
+Beginner Mac experience
+Moderate Linux experience
 Programming Language Knowledge:
-
-Contact Information: 
+Extensive Python
+Moderate C
+Beginner javascript
+Some HTML
+Some SQL
+Contact Information: (314)562-4809 / m679b014@home.ku.edu
 
 
 ## Andrew Vanderwerf
