@@ -6,8 +6,10 @@
 
 **Purpose**: Finalize Project Part 2, begin Project Part 3
 
-**Attendence**: Andrew Vander, Max Biundo, Samuel Buehler, Karsten Wolter, Mario Simental, Humza Qureshi
+**Attendence**: Max Biundo, Samuel Buehler, Karsten Wolter, Mario Simental, Andrew Vander (7 minutes late)
+
+Humza Qureshi (absent)
 
 ## Meeting Contents
 
-(Whatever happened or was discussed at the meeting.)
+Karsten noted before the meeting started that he would have to leave at about 6:20 pm.

@@ -2,13 +2,53 @@
 
 ## Introduction
 
-This project should cover the borrowing aspect of a small library's functionality. The purpose of the database is to track the media items in the library; Who has a given item checked out, is it available still, etc. This is not related to higher-level administration (budgeting, payroll, etc.).
+### Project Overview:
+
+This project should cover the borrowing aspect of a small library's functionality.
+
+### Scope
+
+The purpose of the database is to track the media items in the library; Who has a given item checked out, is it available still, etc. This is not related to higher-level administration (budgeting, payroll, etc.).
+
+### Glossary
 
 ## Stakeholders
 
-Customers, Admin people like Librarians. Possibly city and city members; tax payers, schools (administrators, teachers, students)
+Customers, administrative people like Librarians.
+
+Initially thought of this, but decided it would be unnecessary: Possibly city and city members; tax payers, schools (administrators, teachers, students).
 
 ## Requirements
+
+### Functional Requirements
+
+- Should be able to see the library
+
+- Enter new books/items
+
+- Delete books no longer available
+
+- Data Entry
+
+- Data retrieval
+
+- Data updates
+
+- Data deletion
+
+- Generate Reports
+
+- Reservations (books, other media, rooms, tools, computers)
+
+### Non-Functional Requirements (Optional)
+
+- Security (level of access to the database; (ex: Password protection)
+
+- Performance Metrics
+
+## Data Requirements
+
+### Data Entities
 
 - Book and Digital Media (general entity):
   
@@ -50,31 +90,15 @@ Customers, Admin people like Librarians. Possibly city and city members; tax pay
 
 - ~~Budget*~~
 
-## Functional Requirements
-
-- Should be able to see the library
-
-- Enter new books/items
-
-- Delete books no longer available
-
-- Data Entry
-
-- Generate Reports
-
-- Reservations (books, other media, rooms, tools, computers)
-
-### Non-Functional Requirements (Optional)
-
-- Security (level of access to the database; (ex: Password protection)
-
-- Performance Metrics
-
 ## User Requirements
 
 - Views:
   
   - Librarian administration (middle-view)
+    
+    - Check book/media information (status, holder, etc.)
+    
+    - View user account information
   
   - General view (for end-users)
     
