@@ -14,9 +14,13 @@ Now that you have documented the requirements of your database project, the next
 
 *Write a brief paragraph summarizing the purpose and primary functions of your database. This should align with the overall goals and objectives outlined in your requirements document.*
 
+This project should cover the borrowing aspect of a small library's functionality.
+
 ### Scope
 
 *Provide a concise paragraph defining the boundaries of your project. Mention what aspects will be covered and what will be excluded, ensuring consistency with your initial project scope.*
+
+The purpose of the database is to track the media items in the library; Who has a given item checked out, is it available still, etc. This is not related to higher-level administration (budgeting, payroll, etc.).
 
 ### Glossary
 
@@ -41,6 +45,46 @@ Use the requirements document you have already prepared. Ensure that all team me
 ### Establish Relationships
 
 *Determine how the entities are related to each other. Define the cardinality (one-to-one, one-to-many, many-to-many) and any constraints. For example, a Book can be written by one or more Authors, and a Sale can include multiple Books.*
+
+- Book and Digital Media
+  
+  - Title
+  - Author/Creator
+  - ISBN
+  - Publication Year
+  - Publisher
+  - Availability Status
+  - Genre
+
+- Magazines
+  
+  - Title
+  
+  - Issue Number
+  
+  - Publisher
+  
+  - Publication Date
+  
+  - Availability Status
+
+- User (/Customer)
+  
+  - ID
+  - Name (First, Last)
+  - Level of Membership (Regular, Student, Senior)
+  - Date Membership Began
+  - Birthday?
+
+- Checked-Out Entity
+  
+  - 
+
+- Librarian (/Administrator)
+  
+  - ID
+  
+  - Name (First, Last)
 
 ---
 
