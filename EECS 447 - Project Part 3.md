@@ -42,11 +42,18 @@ Use the requirements document you have already prepared. Ensure that all team me
 
 *For each entity, list its attributes and specify the data types or constraints. For example, the Books entity might have attributes such as ISBN, Title, Author, Genre, Price, and Stock Quantity.*
 
-### Establish Relationships
+- Book
+  
+  - Title
+  - Author/Creator
+  - ISBN
+  - Publication Year
+  - Publisher
+  - Page Count
+  - Availability Status
+  - Genre
 
-*Determine how the entities are related to each other. Define the cardinality (one-to-one, one-to-many, many-to-many) and any constraints. For example, a Book can be written by one or more Authors, and a Sale can include multiple Books.*
-
-- Book and Digital Media
+- eBook
   
   - Title
   - Author/Creator
@@ -56,19 +63,43 @@ Use the requirements document you have already prepared. Ensure that all team me
   - Availability Status
   - Genre
 
-- Magazines
+- Audiobook
   
   - Title
-  
-  - Issue Number
-  
+  - Author/Creator
+  - ISBN
+  - Publication Year
   - Publisher
+  - Duration
+  - Availability Status
+  - Genre
+
+- Magazine
   
+  - Title
+  - Issue Number
+  - Publisher
   - Publication Date
-  
+  - Page Count
   - Availability Status
 
-- User (/Customer)
+- Digital Disk
+  
+  - Title
+  - Creator
+  - <u>ISSN</u>
+  - Release Year
+  - Distributor
+  - Availability Status
+  - Genre
+  - Disk Type (CDs, )
+  - Media Type (Video games, movies, )
+
+- Author
+  
+  - Name
+
+- Member
   
   - ID
   - Name (First, Last)
@@ -76,15 +107,54 @@ Use the requirements document you have already prepared. Ensure that all team me
   - Date Membership Began
   - Birthday?
 
-- Checked-Out Entity
+- 3D Printer
   
-  - 
+  - Filament Type
+  - Model
+  - ID
+  - Print Volume
+  - Availability Status
+
+- Wi-Fi Hotspot
+  
+  - Model
+  - ID
+  - Carrier
+  - Availability Status
+
+- Tool
+  
+  - Type
+  - Model
+  - ID
+  - Brand
+  - Availability Status
+
+- Room
+  
+  - ID
+  - Availability Status
+  - Capacity
+
+- ~~Checked-Out Entity~~
 
 - Librarian (/Administrator)
   
   - ID
   
   - Name (First, Last)
+
+### Establish Relationships
+
+*Determine how the entities are related to each other. Define the cardinality (one-to-one, one-to-many, many-to-many) and any constraints. For example, a Book can be written by one or more Authors, and a Sale can include multiple Books.*
+
+- (Book, eBook, Audiobook, Magazine) many-to-many (Authors)
+
+- Member can Borrow/Checked-Out one or more items (Book, eBook, Audiobook, Tool, Wi-Fi hotspot)
+
+- Room can be reserved by one-to-one Members
+
+- 3D printer can be reserved by one Member
 
 ---
 
