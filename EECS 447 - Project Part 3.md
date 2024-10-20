@@ -1,3 +1,4 @@
+
 # EECS 447 - Project Part 3
 
 ## Objective
@@ -42,107 +43,106 @@ Use the requirements document you have already prepared. Ensure that all team me
 
 *For each entity, list its attributes and specify the data types or constraints. For example, the Books entity might have attributes such as ISBN, Title, Author, Genre, Price, and Stock Quantity.*
 
-- Book
-  
-  - Title `VARCHAR(255)`
-  - Author/Creator `VARCHAR(255)`
+- ****Book****
   - ISBN `CHAR(13)` `Primary Key`
-  - Publication Year
-  - Publisher
-  - Page Count
-  - Availability Status
-  - Genre
+  - Title `VARCHAR(255)`
+  - Author `VARCHAR(255)`
+  - Publication Year `YEAR`
+  - Publisher `VARCHAR(255)`
+  - Page Count `SMALLINT UNSIGNED`
+  - Availability Status `ENUM('Available', 'Unavailable', 'Lost', 'On Hold')`
+  - Quantity `TINYINT UNSIGNED`
+  - Genre `VARCHAR(100)`
 
-- eBook
-  
-  - Title
-  - Author/Creator
-  - ISBN
-  - Publication Year
-  - Publisher
-  - Availability Status
-  - Genre
+- ****eBook****
+  - ISBN `CHAR(13)` `Primary Key`
+  - Title `VARCHAR(255)`
+  - Author `VARCHAR(255)`
+  - Publication Year `YEAR`
+  - Publisher `VARCHAR(255)`
+  - Availability Status `ENUM('Available', 'Unavailable', 'Lost', 'On Hold')`
+  - Quantity `TINYINT UNSIGNED`
+  - Genre `VARCHAR(100)`
 
-- Audiobook
-  
-  - Title
-  - Author/Creator
-  - ISBN
-  - Publication Year
-  - Publisher
-  - Duration
-  - Availability Status
-  - Genre
+- ****Audiobook****
+  - ISBN `CHAR(13)` `Primary Key`
+  - Title `VARCHAR(255)`
+  - Author `VARCHAR(255)`
+  - Publication Year `YEAR`
+  - Publisher `VARCHAR(255)`
+  - Duration (Seconds) `MEDIUMINT UNSIGNED` 
+  - Availability Status `ENUM('Available', 'Unavailable', 'Lost', 'On Hold')`
+  - Quantity `TINYINT UNSIGNED`
+  - Genre `VARCHAR(100)`
 
-- Magazine
-  
-  - Title
-  - Issue Number
-  - Publisher
-  - Publication Date
-  - Page Count
-  - Availability Status
+- ****Magazine****
+  - ISSN `CHAR(8)` `Primary Key`
+  - Title  `VARCHAR(255)`
+  - Issue Number `INT UNSIGNED` 
+  - Publisher `VARCHAR(255)`
+  - Publication Year `YEAR`  
+  - Publication Month `TINYINT UNSIGNED`
+  - Page Count `SMALLINT UNSIGNED`
+  - Availability Status `ENUM('Available', 'Unavailable', 'Lost', 'On Hold')`
+  - Quantity `TINYINT UNSIGNED`
 
-- Digital Disk
-  
-  - Title
-  - Creator
-  - <u>ISSN</u>
-  - Release Year
-  - Distributor
-  - Availability Status
-  - Genre
-  - Disk Type (CDs, )
-  - Media Type (Video games, movies, )
+- ****Digital Disk****
+  - ISSN `CHAR(13)` `Primary Key`
+  - Title `VARCHAR(255)`
+  - Creator `VARCHAR(255)`
+  - Release Year `YEAR`  
+  - Distributor `VARCHAR(255)`
+  - Availability Status `ENUM('Available', 'Unavailable', 'Lost', 'On Hold')`
+  - Genre `VARCHAR(255)`
+  - Disk Type  `ENUM('CD', 'DVD', 'VHS', 'Other')`
+  - Media Type `ENUM('Video Game', 'Movie', 'Other')`
+  - Quantity `TINYINT UNSIGNED`
 
-- Author
-  
-  - Name
+- ****Author****
+  - ID `INT UNSIGNED` `Primary Key`
+  - First Name `VARCHAR(255)`
+  - Middle Name `VARCHAR(255)`
+  - Last Name `VARCHAR(255)`
 
-- Member
-  
-  - ID
-  - Name (First, Last)
-  - Level of Membership (Regular, Student, Senior)
-  - Date Membership Began
-  - Birthday?
+- ****Member****
+  - ID `INT UNSIGNED` `Primary Key`
+  - First Name `VARCHAR(255)`
+  - Middle Name `VARCHAR(255)`
+  - Last Name `VARCHAR(255)`
+  - Level of Membership `ENUM('Regular', 'Student, 'Senior')`
+  - Date Membership Began `DATE`
+  - Birthday `DATE`
 
-- 3D Printer
-  
-  - Filament Type
-  - Model
-  - ID
-  - Print Volume
-  - Availability Status
+- ****3D Printer****
+  - ID `INT UNSIGNED` `Primary Key`
+  - Filament Type `VARCHAR(255)`
+  - Model `VARCHAR(255)`
+  - Print Volume `INT UNSIGNED`
+  - Availability Status `ENUM('Available', 'Unavailable', 'Lost', 'On Hold')`
 
-- Wi-Fi Hotspot
-  
-  - Model
-  - ID
-  - Carrier
-  - Availability Status
+- ****Wi-Fi Hotspot****
+  - ID `INT UNSIGNED` `Primary Key`
+  - Model `VARCHAR(255)`
+  - Carrier `VARCHAR(255)`
+  - Availability Status `ENUM('Available', 'Unavailable', 'Lost', 'On Hold')`
 
-- Tool
-  
-  - Type
-  - Model
-  - ID
-  - Brand
-  - Availability Status
+- ****Tool****
+  - ID `INT UNSIGNED` `Primary Key`
+  - Type `VARCHAR(255)`
+  - Model `VARCHAR(255)`
+  - Brand `VARCHAR(255)`
+  - Availability Status `ENUM('Available', 'Unavailable', 'Lost', 'On Hold')`
 
-- Room
+- ****Room****
+  - ID `INT UNSIGNED` `Primary Key`
+  - Availability Status  `ENUM('Available', 'Unavailable', 'Lost', 'On Hold')`
+  - Capacity `TINYINT UNSIGNED`
   
-  - ID
-  - Availability Status
-  - Capacity
-
-- ~~Checked-Out Entity~~
-
-- Librarian (/Administrator)
-  
-  - ID
-  
-  - Name (First, Last)
+- ****Librarian****
+  - ID  `INT UNSIGNED` `Primary Key`
+  - First Name `VARCHAR(255)`
+  - Middle Name `VARCHAR(255)`
+  - Last Name `VARCHAR(255)`
 
 ### Establish Relationships
 
