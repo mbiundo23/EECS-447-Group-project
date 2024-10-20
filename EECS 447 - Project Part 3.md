@@ -44,9 +44,9 @@ Use the requirements document you have already prepared. Ensure that all team me
 
 - Book
   
-  - Title
-  - Author/Creator
-  - ISBN
+  - Title, VARCHAR(255)
+  - Author/Creator, VARCHAR(255)
+  - ISBN, CHAR(13), Primary Key
   - Publication Year
   - Publisher
   - Page Count
