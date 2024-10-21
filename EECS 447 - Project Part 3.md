@@ -173,6 +173,8 @@ Use the requirements document you have already prepared. Ensure that all team me
 
 *Review your ER diagram to ensure it accurately reflects the requirements. Check for completeness and consistency. Make sure all entities, attributes, and relationships are clearly represented.*
 
+Diagram can be found [here](https://github.com/mbiundo23/EECS-447-Group-project/blob/main/Eecs447_Project_ERDiagram.pdf).
+
 ---
 
 ## Appendices
