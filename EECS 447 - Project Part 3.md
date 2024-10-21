@@ -1,4 +1,5 @@
 
+
 # EECS 447 - Project Part 3
 
 ## Objective
@@ -50,8 +51,8 @@ Use the requirements document you have already prepared. Ensure that all team me
   - Publication Year `YEAR`
   - Publisher `VARCHAR(255)`
   - Page Count `SMALLINT UNSIGNED`
-  - Availability Status `ENUM('Available', 'Unavailable', 'Lost', 'On Hold')`
-  - Quantity `TINYINT UNSIGNED`
+  - Available Quantity`TINYINT UNSIGNED`
+  - Total Quantity `TINYINT UNSIGNED`
   - Genre `VARCHAR(100)`
 
 - ****eBook****
@@ -60,8 +61,8 @@ Use the requirements document you have already prepared. Ensure that all team me
   - Author `VARCHAR(255)`
   - Publication Year `YEAR`
   - Publisher `VARCHAR(255)`
-  - Availability Status `ENUM('Available', 'Unavailable', 'Lost', 'On Hold')`
-  - Quantity `TINYINT UNSIGNED`
+  - Available Quantity`TINYINT UNSIGNED`
+  - Total Quantity `TINYINT UNSIGNED`
   - Genre `VARCHAR(100)`
 
 - ****Audiobook****
@@ -71,8 +72,8 @@ Use the requirements document you have already prepared. Ensure that all team me
   - Publication Year `YEAR`
   - Publisher `VARCHAR(255)`
   - Duration (Seconds) `MEDIUMINT UNSIGNED` 
-  - Availability Status `ENUM('Available', 'Unavailable', 'Lost', 'On Hold')`
-  - Quantity `TINYINT UNSIGNED`
+  - Available Quantity`TINYINT UNSIGNED`
+  - Total Quantity `TINYINT UNSIGNED`
   - Genre `VARCHAR(100)`
 
 - ****Magazine****
@@ -83,8 +84,8 @@ Use the requirements document you have already prepared. Ensure that all team me
   - Publication Year `YEAR`  
   - Publication Month `TINYINT UNSIGNED`
   - Page Count `SMALLINT UNSIGNED`
-  - Availability Status `ENUM('Available', 'Unavailable', 'Lost', 'On Hold')`
-  - Quantity `TINYINT UNSIGNED`
+  - Available Quantity`TINYINT UNSIGNED`
+  - Total Quantity `TINYINT UNSIGNED`
 
 - ****Digital Disk****
   - ISSN `CHAR(13)` `Primary Key`
@@ -92,11 +93,11 @@ Use the requirements document you have already prepared. Ensure that all team me
   - Creator `VARCHAR(255)`
   - Release Year `YEAR`  
   - Distributor `VARCHAR(255)`
-  - Availability Status `ENUM('Available', 'Unavailable', 'Lost', 'On Hold')`
   - Genre `VARCHAR(255)`
   - Disk Type  `ENUM('CD', 'DVD', 'VHS', 'Other')`
   - Media Type `ENUM('Video Game', 'Movie', 'Other')`
-  - Quantity `TINYINT UNSIGNED`
+  - Available Quantity`TINYINT UNSIGNED`
+  - Total Quantity `TINYINT UNSIGNED`
 
 - ****Author****
   - ID `INT UNSIGNED` `Primary Key`
@@ -173,7 +174,7 @@ Use the requirements document you have already prepared. Ensure that all team me
 
 *Review your ER diagram to ensure it accurately reflects the requirements. Check for completeness and consistency. Make sure all entities, attributes, and relationships are clearly represented.*
 
-Diagram can be found [here](https://github.com/mbiundo23/EECS-447-Group-project/blob/main/Eecs447_Project_ERDiagram.pdf).
+Diagram can be found [here](https://github.com/mbiundo23/EECS-447-Group-project/blob/main/Eecs447_Project_ERDiagram.drawio.pdf).
 
 ---
 
