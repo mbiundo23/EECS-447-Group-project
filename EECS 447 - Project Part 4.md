@@ -2,53 +2,64 @@
 
 ## Project Overview
 
-
+This project aims to develop a database to cover the borrowing and management of media items in a small library. The database will track items such as books, eBooks, audiobooks, magazines, and digital disks, including their availability and borrowing status. The database also tracks the borrowing of electronics, tools and printers and room reservations.
 
 ## Scope
 
-
+The purpose of the database is to track the media items in the library; Who has a given item checked out, is it available still, etc. This is not related to higher-level administration (budgeting, payroll, etc.).
 
 ## Glossary
 
-
+- **ISBN:** International Standard Book Number, a unique identifier for books.
+- **ISSN:** International Standard Serial Number, a unique identifier for serial publications like magazines.
+  - **Media Items:** Various types of content available for borrowing, including books, eBooks, audiobooks, magazines, and digital disks.
+  - **Member:** A registered individual who can borrow media items from the library.
 
 # Relational Schema Mapping
 
+## Identify Relations
 
+## Define attributes and domains
+
+## Determine primary keys
+
+## Establish foreign keys
 
 # Schema Documentation
 
+## Relational Schema Diagram
 
+## Data Dictionary
 
 # Generate DDL
 
 ```sql
 CREATE TABLE Member (
     ID INT PRIMARY KEY,
-    First_name VARCHAR(255),
-    Last_name VARCHAR(255),
-    Middle_initial VARCHAR(1),
-    Membertype VARCHAR(10),
-    Starting_date VARCHAR(40),
+    FirstName VARCHAR(255),
+    LastName VARCHAR(255),
+    MiddleNnitial VARCHAR(1),
+    MemberType VARCHAR(10),
+    StartingDate VARCHAR(40),
     Birthday VARCHAR(20)
 );
 
 CREATE TABLE Room (
-    Room_number INT PRIMARY KEY,
-    Room_status BOOLEAN,
+    RoomNumber INT PRIMARY KEY,
+    RoomStatus BOOLEAN,
     Capacity INT
 );
 
 CREATE TABLE Borrow_log (
-    Borrow_ID INT PRIMARY KEY,
-    Checkout_date DATE,
-    Checkin_date DATE,
+    BorrowID INT PRIMARY KEY,
+    CheckoutDate DATE,
+    CheckinDate DATE,
     Maxduration INT
 );
 
 CREATE TABLE Resource (
     ID INT PRIMARY KEY,
-    Resource_status BOOLEAN
+    ResourceStatus BOOLEAN
 );
 
 CREATE TABLE Equipment (
@@ -60,9 +71,9 @@ CREATE TABLE Physical_book (
     ISBN VARCHAR(13),
     Title VARCHAR(255),
     AuthorID INT,
-    Publication_year YEAR,
+    PublicationYear YEAR,
     Publisher VARCHAR(255),
-    Page_count INT,
+    PageCount INT,
     Genre VARCHAR(255)
 );
 
@@ -70,7 +81,7 @@ CREATE TABLE Audiobook (
     ISBN VARCHAR(13),
     Title VARCHAR(255),
     AuthorID INT,
-    Publication_year YEAR,
+    PublicationYear YEAR,
     Publisher VARCHAR(255),
     Duration INT,
     Genre VARCHAR(255)
@@ -80,7 +91,7 @@ CREATE TABLE eBook (
     ISBN VARCHAR(13),
     Title VARCHAR(255),
     AuthorID INT,
-    Publication_year YEAR,
+    PublicationYear YEAR,
     Publisher VARCHAR(255),
     Genre VARCHAR(255)
 );
@@ -88,28 +99,28 @@ CREATE TABLE eBook (
 CREATE TABLE Magazine (
     ISSN VARCHAR(8),
     Title VARCHAR(255),
-    Issue_number INT,
+    IssueNumber INT,
     Publisher VARCHAR(255),
-    Publication_year YEAR,
-    Publication_month VARCHAR(255),
+    PublicationYear YEAR,
+    PublicationMonth VARCHAR(255),
     Page_count INT
 );
 
 CREATE TABLE Digital_disk (
     ISSN VARCHAR(8),
     Title VARCHAR(255),
-    Media_type VARCHAR(255),
-    Disk_type VARCHAR(255),
-    Release_year YEAR,
+    MediaType VARCHAR(255),
+    DiskType VARCHAR(255),
+    ReleaseYear YEAR,
     Distributor VARCHAR(255),
     Genre VARCHAR(255)
 );
 
 CREATE TABLE Author (
     AuthorID INT,
-    First_name VARCHAR(255),
-    Last_name VARCHAR(255),
-    Middle_initial VARCHAR(1)
+    FirstName VARCHAR(255),
+    LastName VARCHAR(255),
+    MiddleInitial VARCHAR(1)
 );
 
 CREATE TABLE ResourceAuthor (
@@ -121,7 +132,5 @@ CREATE TABLE ResourceAuthor (
 ```
 
 # Normalization Considerations
-
-
 
 # Appendices
