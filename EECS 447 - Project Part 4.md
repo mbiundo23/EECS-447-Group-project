@@ -6,7 +6,7 @@ This project aims to develop a database to cover the borrowing and management of
 
 ## Scope
 
-The purpose of the database is to track the media items in the library; Who has a given item checked out, is it available still, etc. This is not related to higher-level administration (budgeting, payroll, etc.).
+The purpose of the database is to track the media items in the library; Who has a given item checked out, is it available still, etc. This is not related to higher-level administration (budgeting, payroll, etc.). Items that can be borrowed are Resources, each with their own unique ResourceID.
 
 ## Glossary
 
@@ -19,6 +19,12 @@ The purpose of the database is to track the media items in the library; Who has 
 
 ## Identify Relations
 
+### ReserveRoom
+
+| Date | RoomNum | MemberID |
+| ---- | ------- | -------- |
+|      |         |          |
+
 ## Define attributes and domains
 
 ## Determine primary keys
@@ -29,7 +35,11 @@ The purpose of the database is to track the media items in the library; Who has 
 
 ## Relational Schema Diagram
 
+Relational Schema Diagram can be found [here](https://github.com/mbiundo23/EECS-447-Group-project/blob/main/Eecs447_Project_4_RelationalSchemaDiagram.drawio.pdf).
+
 ## Data Dictionary
+
+Data Dictionary is located on Google Sheets. It can be found [here](https://docs.google.com/spreadsheets/d/1nU0cKf3zptvo39PKQ4YFYqHB2BGKsSDMLf2l0BZshv4/edit?usp=sharing).
 
 # Generate DDL
 
@@ -38,7 +48,7 @@ CREATE TABLE Member (
     ID INT PRIMARY KEY,
     FirstName VARCHAR(255),
     LastName VARCHAR(255),
-    MiddleNnitial VARCHAR(1),
+    MiddleInitial VARCHAR(1),
     MemberType VARCHAR(10),
     StartingDate VARCHAR(40),
     Birthday VARCHAR(20)
@@ -70,7 +80,6 @@ CREATE TABLE Equipment (
 CREATE TABLE Physical_book (
     ISBN VARCHAR(13),
     Title VARCHAR(255),
-    AuthorID INT,
     PublicationYear YEAR,
     Publisher VARCHAR(255),
     PageCount INT,
@@ -80,7 +89,6 @@ CREATE TABLE Physical_book (
 CREATE TABLE Audiobook (
     ISBN VARCHAR(13),
     Title VARCHAR(255),
-    AuthorID INT,
     PublicationYear YEAR,
     Publisher VARCHAR(255),
     Duration INT,
@@ -90,7 +98,6 @@ CREATE TABLE Audiobook (
 CREATE TABLE eBook (
     ISBN VARCHAR(13),
     Title VARCHAR(255),
-    AuthorID INT,
     PublicationYear YEAR,
     Publisher VARCHAR(255),
     Genre VARCHAR(255)
@@ -130,7 +137,5 @@ CREATE TABLE ResourceAuthor (
     FOREIGN KEY (AuthorID) REFERENCES Author(AuthorID)
 );
 ```
-
-# Normalization Considerations
 
 # Appendices
