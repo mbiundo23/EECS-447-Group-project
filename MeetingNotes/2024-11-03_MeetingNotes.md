@@ -8,7 +8,7 @@ MEETING NOTES
 
 **Attendence**: Max Biundo, Samuel Buehler, Mario Simental, Karsten Wolter, Humza Qureshi
 
-    Andrew was absent.
+    Andrew was late.
 
 ## Meeting Contents
 
