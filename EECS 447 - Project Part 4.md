@@ -103,7 +103,7 @@ CREATE TABLE Magazine (
     Publisher VARCHAR(255),
     PublicationYear YEAR,
     PublicationMonth VARCHAR(255),
-    Page_count INT
+    PageCount INT
 );
 
 CREATE TABLE Digital_disk (
