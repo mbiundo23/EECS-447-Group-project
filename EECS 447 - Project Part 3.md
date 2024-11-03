@@ -1,5 +1,3 @@
-
-
 # EECS 447 - Project Part 3
 
 ## Objective
@@ -9,6 +7,7 @@ Develop a comprehensive Entity-Relationship (ER) diagram that accurately represe
 Now that you have documented the requirements of your database project, the next step is to prepare a conceptual model. This model will serve as a blueprint for your database design, capturing the essential entities, relationships, and constraints based on the requirements you have gathered.
 
 ---
+
 ## Introduction
 
 ### Project Overview
@@ -23,15 +22,17 @@ The purpose of the database is to track the media items in the library; Who has 
 
 - **ISBN:** International Standard Book Number, a unique identifier for books.
 - **ISSN:** International Standard Serial Number, a unique identifier for serial publications like magazines.
- - **Media Items:** Various types of content available for borrowing, including books, eBooks, audiobooks, magazines, and digital disks. 
- - **Member:** A registered individual who can borrow media items from the library.
+  - **Media Items:** Various types of content available for borrowing, including books, eBooks, audiobooks, magazines, and digital disks. 
+  - **Member:** A registered individual who can borrow media items from the library.
 
 ---
 
 ## Entities
 
 ### Define Attributes
+
 - ****Book****
+  
   - ISBN `CHAR(13)` `Primary Key`
     - An identifier with exactly 13 characters used to uniquely identify a book.
   - Title `VARCHAR(255)`
@@ -52,6 +53,7 @@ The purpose of the database is to track the media items in the library; Who has 
     - The genre of the book, with a limit of 100 characters.
 
 - ****eBook****
+  
   - ISBN `CHAR(13)` `Primary Key`
     - An identifier with exactly 13 characters used to uniquely identify an eBook.
   - Title `VARCHAR(255)`
@@ -70,6 +72,7 @@ The purpose of the database is to track the media items in the library; Who has 
     - The genre of the eBook, with a limit of 100 characters.
 
 - ****Audiobook****
+  
   - ISBN `CHAR(13)` `Primary Key`
     - An identifier with exactly 13 characters used to uniquely identify an audiobook.
   - Title `VARCHAR(255)`
@@ -90,6 +93,7 @@ The purpose of the database is to track the media items in the library; Who has 
     - The genre of the audiobook, with a limit of 100 characters.
 
 - ****Magazine****
+  
   - ISSN `CHAR(8)` `Primary Key`
     - An identifier with exactly 8 characters used to uniquely identify a magazine.
   - Title `VARCHAR(255)`
@@ -110,6 +114,7 @@ The purpose of the database is to track the media items in the library; Who has 
     - The total number of copies of the magazine in the library.
 
 - ****Digital Disk****
+  
   - ISSN `CHAR(13)` `Primary Key`
     - An identifier with exactly 13 characters used to uniquely identify a digital disk.
   - Title `VARCHAR(255)`
@@ -132,6 +137,7 @@ The purpose of the database is to track the media items in the library; Who has 
     - The total number of copies of the digital disk in the library.
 
 - ****Author****
+  
   - ID `INT UNSIGNED` `Primary Key`
     - A unique identifier for each author.
   - First Name `VARCHAR(255)`
@@ -142,6 +148,7 @@ The purpose of the database is to track the media items in the library; Who has 
     - The author's last name with a limit of 255 characters.
 
 - ****Member****
+  
   - ID `INT UNSIGNED` `Primary Key`
     - A unique identifier for each library member.
 
@@ -153,6 +160,7 @@ The purpose of the database is to track the media items in the library; Who has 
 - One 3D printer can be reserved by one Member
 - One Tool can be reserved by one Member
 - One Hotspot can be reserved by one Member
+
 ---
 
 ## ER Diagram
@@ -160,6 +168,7 @@ The purpose of the database is to track the media items in the library; Who has 
 Diagram can be found [here](https://github.com/mbiundo23/EECS-447-Group-project/blob/main/Eecs447_Project_ERDiagram.drawio.pdf).
 
 ---
+
 ## Appendices
 
 The entities and relationships are not final as we are still disccusing the possibility of exploring generalization for media based entities such as books, ebooks, audio books magazines, and disks belonging to a generalized entity. Another topic we discussed is the possibility of using an Author ID/Publisher ID as a foreign key to media based entities. Additionally, for room reservations, we discussed the possibility of adding a time block as a composite attribute that holds both the date and time. 

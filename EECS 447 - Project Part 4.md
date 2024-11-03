@@ -1,7 +1,33 @@
+# Introduction
+
+## Project Overview
+
+
+
+## Scope
+
+
+
+## Glossary
+
+
+
+# Relational Schema Mapping
+
+
+
+# Schema Documentation
+
+
+
+# Generate DDL
+
 ```sql
 CREATE TABLE Member (
     ID INT PRIMARY KEY,
-    Member_Name VARCHAR(255),
+    First_name VARCHAR(255),
+    Last_name VARCHAR(255),
+    Middle_initial VARCHAR(1),
     Membertype VARCHAR(10),
     Starting_date VARCHAR(40),
     Birthday VARCHAR(20)
@@ -33,7 +59,7 @@ CREATE TABLE Equipment (
 CREATE TABLE Physical_book (
     ISBN VARCHAR(13),
     Title VARCHAR(255),
-    Author ,
+    AuthorID INT,
     Publication_year YEAR,
     Publisher VARCHAR(255),
     Page_count INT,
@@ -43,7 +69,7 @@ CREATE TABLE Physical_book (
 CREATE TABLE Audiobook (
     ISBN VARCHAR(13),
     Title VARCHAR(255),
-    Author ,
+    AuthorID INT,
     Publication_year YEAR,
     Publisher VARCHAR(255),
     Duration INT,
@@ -53,7 +79,7 @@ CREATE TABLE Audiobook (
 CREATE TABLE eBook (
     ISBN VARCHAR(13),
     Title VARCHAR(255),
-    Author ,
+    AuthorID INT,
     Publication_year YEAR,
     Publisher VARCHAR(255),
     Genre VARCHAR(255)
@@ -82,11 +108,20 @@ CREATE TABLE Digital_disk (
 CREATE TABLE Author (
     AuthorID INT,
     First_name VARCHAR(255),
-    Last_name VARCHAR(255)
+    Last_name VARCHAR(255),
+    Middle_initial VARCHAR(1)
 );
 
 CREATE TABLE ResourceAuthor (
     ResourceID INT,
-    AuthorID INT
+    AuthorID INT,
+    FOREIGN KEY (ResourceID) REFERENCES Resource(ResourceID),
+    FOREIGN KEY (AuthorID) REFERENCES Author(AuthorID)
 );
 ```
+
+# Normalization Considerations
+
+
+
+# Appendices
