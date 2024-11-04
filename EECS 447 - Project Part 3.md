@@ -31,69 +31,73 @@ The purpose of the database is to track the media items in the library; Who has 
 
 ### Define Attributes
 
-- ****Book****
+- **Resource**
   
+  - ResourceID `INT` `PRIMARY KEY`
+    
+    - An item's primary resource ID, unique for the library's inventory.
+  
+  - AvailabilityStatus `BOOL`
+    
+    - Boolean representing whether the resource is available in the library or not.
+
+- **Physical Book**
+  
+  * ResourceID `INT` `Primary Key`
+    
+    * An item's primary resource ID, unique for the library's inventory.
   - ISBN `CHAR(13)` `Primary Key`
     - An identifier with exactly 13 characters used to uniquely identify a book.
   - Title `VARCHAR(255)`
     - A title with a limit of 255 characters representing the book's name.
-  - Author `VARCHAR(255)`
-    - An author's name with a limit of 255 characters, indicating who wrote the book.
   - Publication Year `YEAR`
     - The year the book was published.
   - Publisher `VARCHAR(255)`
     - A publisher's name with a limit of 255 characters, showing who published the book.
   - Page Count `SMALLINT UNSIGNED`
     - The total number of pages in the book.
-  - Available Quantity `TINYINT UNSIGNED`
-    - The number of copies of the book currently available for borrowing.
-  - Total Quantity `TINYINT UNSIGNED`
-    - The total number of copies of the book in the library.
   - Genre `VARCHAR(100)`
     - The genre of the book, with a limit of 100 characters.
 
 - ****eBook****
   
+  * ResourceID `INT` `Primary Key`
+    
+    - An item's primary resource ID, unique for the library's inventory.
   - ISBN `CHAR(13)` `Primary Key`
     - An identifier with exactly 13 characters used to uniquely identify an eBook.
   - Title `VARCHAR(255)`
     - A title with a limit of 255 characters representing the eBook's name.
-  - Author `VARCHAR(255)`
-    - An author's name with a limit of 255 characters, indicating who wrote the eBook.
   - Publication Year `YEAR`
     - The year the eBook was published.
   - Publisher `VARCHAR(255)`
     - A publisher's name with a limit of 255 characters, showing who published the eBook.
-  - Available Quantity `TINYINT UNSIGNED`
-    - The number of copies of the eBook currently available for download or access.
-  - Total Quantity `TINYINT UNSIGNED`
-    - The total number of copies of the eBook in the library.
   - Genre `VARCHAR(100)`
     - The genre of the eBook, with a limit of 100 characters.
 
 - ****Audiobook****
   
+  * ResourceID `INT` `Primary Key`
+    
+    - An item's primary resource ID, unique for the library's inventory.
   - ISBN `CHAR(13)` `Primary Key`
     - An identifier with exactly 13 characters used to uniquely identify an audiobook.
   - Title `VARCHAR(255)`
     - A title with a limit of 255 characters representing the audiobook's name.
-  - Author `VARCHAR(255)`
-    - An author's name with a limit of 255 characters, indicating who narrated or created the audiobook.
   - Publication Year `YEAR`
     - The year the audiobook was released.
   - Publisher `VARCHAR(255)`
     - A publisher's name with a limit of 255 characters, showing who published the audiobook.
   - Duration (Seconds) `MEDIUMINT UNSIGNED`
     - The total length of the audiobook in seconds.
-  - Available Quantity `TINYINT UNSIGNED`
-    - The number of copies of the audiobook currently available for borrowing.
-  - Total Quantity `TINYINT UNSIGNED`
-    - The total number of copies of the audiobook in the library.
   - Genre `VARCHAR(100)`
     - The genre of the audiobook, with a limit of 100 characters.
 
 - ****Magazine****
   
+  * ResourceID `INT` `Primary Key`
+    
+    - An item's primary resource ID, unique for the library's inventory.
   - ISSN `CHAR(8)` `Primary Key`
     - An identifier with exactly 8 characters used to uniquely identify a magazine.
   - Title `VARCHAR(255)`
@@ -108,19 +112,18 @@ The purpose of the database is to track the media items in the library; Who has 
     - The month when the magazine issue was published (1-12).
   - Page Count `SMALLINT UNSIGNED`
     - The total number of pages in the magazine.
-  - Available Quantity `TINYINT UNSIGNED`
-    - The number of copies of the magazine currently available for borrowing.
-  - Total Quantity `TINYINT UNSIGNED`
-    - The total number of copies of the magazine in the library.
+  - Genre `VARCHAR(255)`
+    - The genre of the digital disk, with a limit of 255 characters.
 
 - ****Digital Disk****
   
+  * ResourceID `INT` `Primary Key`
+    
+    - An item's primary resource ID, unique for the library's inventory.
   - ISSN `CHAR(13)` `Primary Key`
     - An identifier with exactly 13 characters used to uniquely identify a digital disk.
   - Title `VARCHAR(255)`
     - A title with a limit of 255 characters representing the digital disk's name.
-  - Creator `VARCHAR(255)`
-    - A creator's name with a limit of 255 characters, indicating who produced or developed the digital disk content.
   - Release Year `YEAR`
     - The year the digital disk was released.
   - Distributor `VARCHAR(255)`
@@ -131,35 +134,54 @@ The purpose of the database is to track the media items in the library; Who has 
     - The type of disk, indicating the medium format of the digital content.
   - Media Type `ENUM('Video Game', 'Movie', 'Other')`
     - The type of media, categorizing the digital content (e.g., video game or movie).
-  - Available Quantity `TINYINT UNSIGNED`
-    - The number of copies of the digital disk currently available for borrowing.
-  - Total Quantity `TINYINT UNSIGNED`
-    - The total number of copies of the digital disk in the library.
+- **Equipment**
+  - ResourceID `INT` `Primary Key` `FOREIGN KEY`
+    - An item's primary resource ID, unique for the library's inventory.
+  - Model `VARCHAR(255)`
+    - The model name of the object with a limit of 255 characters.
 
 - ****Author****
   
-  - ID `INT UNSIGNED` `Primary Key`
+  - AuthorID `INT UNSIGNED` `Primary Key`
     - A unique identifier for each author.
   - First Name `VARCHAR(255)`
     - The author's first name with a limit of 255 characters.
-  - Middle Name `VARCHAR(255)`
-    - The author's middle name with a limit of 255 characters (optional).
   - Last Name `VARCHAR(255)`
     - The author's last name with a limit of 255 characters.
+  - Middle Initial `VARCHAR(1)`
+    - The author's middle name with a limit of 1 character (optional).
 
 - ****Member****
   
-  - ID `INT UNSIGNED` `Primary Key`
+  - MemberID `INT UNSIGNED` `Primary Key`
     - A unique identifier for each library member.
+  - Name `VARCHAR(255)`
+    - The author's name with a limit of 255 characters.
+  - MembershipType `VARCHAR(255)`
+    - Level of membership of the member, such as "standard", "senior", "student".
+  - StartingDate `VARCHAR(50)`
+    - Date representing when the membership of the given member began.
+  - BirthDate `DATE`
+    - Date representing the birthdate of the member.
+- **BorrowLog**
+  - BorrowID `INT` `PRIMARY KEY`
+    - A unique identifier for each borrowed entry.
+  - MemberID `INT` `FOREIGN KEY`
+    - A unique identifier for each library member.
+  - ResourceID `INT` `FOREIGN KEY`
+    - An item's primary resource ID, unique for the library's inventory.
+  - CheckoutDate `DATE`
+    - Date representing when the given object was checked out.
+  - CheckinDate `DATE`
+    - Date representing when the given object was checked in.
+  - MaxDuration `INT`
+    - Int representing the maximum number of days that the item is supposed to be borrowed for.
 
 ### Relationships
 
-- Written (Book, eBook, Audiobook, Magazine) many-to-many (Authors)
-- Borrow (Member) zero-to-five (Book, eBook, Audiobook, Tool, Wi-Fi hotspot)
-- Room can be reserved by one-to-one Members
-- One 3D printer can be reserved by one Member
-- One Tool can be reserved by one Member
-- One Hotspot can be reserved by one Member
+- Write (Book, eBook, Audiobook) many-to-many (Author)
+- Borrow (Member) zero-to-five (Resource)
+- (Room) can be reserved by one-to-one (Member)
 
 ---
 
