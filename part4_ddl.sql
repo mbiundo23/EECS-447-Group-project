@@ -76,13 +76,16 @@ CREATE TABLE eBook (
 );
 
 CREATE TABLE DigitalDisk (
-    ISSN INT PRIMARY KEY,
+    ResourceID INT PRIMARY KEY,
+    ISSN VARCHAR(255) NOT NULL,
     Title VARCHAR(255) NOT NULL,
     MediaType VARCHAR(255),
     DiskType VARCHAR(255),
     ReleaseYear INT NOT NULL,
     Distributor VARCHAR(255),
-    Genre VARCHAR(100)
+    Genre VARCHAR(100),
+    FOREIGN KEY (ResourceID) REFERENCES Resource(ResourceID)
+
 );
 
 CREATE TABLE Member (
@@ -121,3 +124,5 @@ CREATE TABLE Write (
     FOREIGN KEY (ResourceID) REFERENCES Resource(ResourceID),
     FOREIGN KEY (AuthorID) REFERENCES Author(AuthorID)
 );
+
+
