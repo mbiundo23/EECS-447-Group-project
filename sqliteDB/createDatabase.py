@@ -1,7 +1,5 @@
 import sqlite3
-
 connection = sqlite3.connect('library_database.db')
-
 cursor = connection.cursor()
 
 command1 = """CREATE TABLE Room (
@@ -154,13 +152,5 @@ cursor.execute(command12)
 cursor.execute(command13)
 cursor.execute(command14)
 print("Finished executing")
-
-
-
-
-cursor.execute("SELECT * From Room")
-
-results = cursor.fetchall()
-print(results)
 
 
