@@ -1,4 +1,7 @@
+# Import necessary modules
 import sqlite3
+
+# Connect to the database
 connection = sqlite3.connect('library_database.db')
 cursor = connection.cursor()
 

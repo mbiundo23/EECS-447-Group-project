@@ -1,5 +1,4 @@
 # Import neccessary modules
-
 import string
 
 # All possible resource types

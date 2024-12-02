@@ -1,36 +1,58 @@
+import sys
 import sqlite3
-
-import createDatabase
-import populateDatabase
-import queries
+from queryCommands import * # Import commands
 
 # Connect to the database
 connection = sqlite3.connect('library_database.db')
 cursor = connection.cursor()
 
-# Function to execute SQL commands and handle user input
 def main():
-    while True:
-        # Get user input (SQL query)
-        user_input = input("Enter SQL query (or 'quit' to exit): ").strip()
+    arguments = sys.argv[1:]
+    
+    # Import and call create/populate if specified in arguments
+    if "create" in arguments:
+        import createDatabase
 
-        # If the user wants to quit
+    if "pop" in arguments:
+        import populateDatabase
+
+    # Command loop
+    while True:
+        user_input = input("Enter SQL query or custom command ('help' for commands, or 'quit' to exit): ").strip()
+
+        # Exit the program if 'quit' is entered
         if user_input.lower() == "quit":
             print("Exiting the program.")
             break
-        
+
+        # Parse command and arguments
         try:
-            # Execute the query entered by the user
-            cursor.execute(user_input)
-            
-            # Fetch and display the results
-            rows = cursor.fetchall()
-            for row in rows:
-                print(row)
-            
-        except sqlite3.Error as e:
-            # Print error if SQL query is invalid
-            print(f"Error executing query: {e}")
+            command, arguments = user_input.split(" ", 1)
+        except ValueError:
+            command, arguments = user_input, None  # No arguments provided
+        
+        # Handle custom commands
+        if command in command_map:
+            command_function = command_map[command]
+            result = command_function(arguments)
+
+            if result:
+                rows = result.fetchall()
+                for row in rows:
+                    print(row)
+        else:
+            try:
+                # Execute user-entered SQL query
+                cursor.execute(user_input)
+                rows = cursor.fetchall()
+                for row in rows:
+                    print(row)
+            except sqlite3.Error as e:
+                # Handle invalid SQL query
+                print(f"Error executing query: {e}")
+
+    # Close the database connection before exiting
+    connection.close()
 
 # Run the program
 if __name__ == "__main__":

@@ -250,5 +250,4 @@ populate_reserve_room(NUMBER_OF_RESERVATIONS, NUMBER_OF_ROOMS, NUMBER_OF_MEMBERS
 # Commit and close the connection
 connection.commit()
 connection.close()
-
 print("Database populated successfully.")
