@@ -2,6 +2,10 @@
 
 import string
 
+# All possible resource types
+RESOURCE_TYPES = ["PhysicalBook", "eBook", "AudioBook", "Magazine", "Equipment", "DigitalDisk"]
+
+# All possible equipment models.
 EQUIPMENT_MODELS = [
     "MacBook Pro 13-inch",
     "iPad Pro 12.9-inch",
@@ -22,21 +26,42 @@ EQUIPMENT_MODELS = [
     "Nintendo Switch Gaming Console",
     "Fujitsu ScanSnap iX1500 Document Scanner",
     "Fitbit Charge 5 Smartwatch",
-    "MakerBot Replicator+ 3D Printer"
+    "MakerBot Replicator+ 3D Printer",
+    "Microsoft Surface Pro 7",
+    "Apple Watch Series 8",
+    "Samsung Galaxy S23",
+    "Logitech MX Master 3 Mouse",
+    "BenQ 32-inch 4K Monitor",
+    "GoPro HERO11 Black",
+    "Bose QuietComfort 45 Headphones",
+    "Dyson V15 Detect Cordless Vacuum",
+    "Samsung T7 Portable SSD",
+    "Acer Predator Helios 300 Laptop"
 ]
 
+# All possible first names.
 FIRST_NAMES = [
     "James", "Mary", "John", "Patricia", "Robert", 
-    "Jennifer", "Michael", "Linda", "William", "Elizabeth"
+    "Jennifer", "Michael", "Linda", "William", "Elizabeth",
+    "David", "Emma", "Daniel", "Sophia", "Matthew", 
+    "Olivia", "Joshua", "Liam", "Ethan", "Isabella", 
+    "Lucas", "Charlotte", "Mason", "Amelia", "Benjamin", 
+    "Harper", "Jackson", "Chloe", "Henry", "Avery"
 ]
 
+# All possible middle initials inluding empty initial.
 MIDDLE_INITIALS = [""] + list(string.ascii_uppercase)
 
+# All possible last names.
 LAST_NAMES = [
     "Smith", "Johnson", "Williams", "Brown", "Jones", 
-    "Garcia", "Miller", "Davis", "Rodriguez", "Martinez"
+    "Garcia", "Miller", "Davis", "Rodriguez", "Martinez",
+    "Taylor", "Anderson", "Thomas", "Jackson", "White", 
+    "Harris", "Martin", "Thompson", "Lee", "Gonzalez", 
+    "Perez", "Wilson", "Clark", "Lewis", "Young", 
+    "Walker", "Hall", "Allen", "King", "Scott", "Green"
 ]
-
+# All possible genres.
 GENRES = [
     "Fantasy",
     "Science Fiction",
@@ -61,6 +86,7 @@ GENRES = [
     "Graphic Novel"
 ]
 
+# All possible magazine genres.
 MAGAZINE_GENRES = [
     "Fashion",
     "Lifestyle",
@@ -79,6 +105,7 @@ MAGAZINE_GENRES = [
     "Photography"
 ]
 
+# All possible digital disk types.
 DIGITAL_DISK_TYPES = [
     "CD",       
     "DVD",      
@@ -88,6 +115,7 @@ DIGITAL_DISK_TYPES = [
     "LaserDisc" 
 ]
 
+# All possible media types.
 MEDIA_TYPES = [
     "Audio",          
     "Video",       
@@ -100,21 +128,34 @@ MEDIA_TYPES = [
     "Hybrid",      
 ]   
 
+# All possible adjectives for generating resource titles.
 ADJECTIVES = [
     "Mystic", "Silent", "Forgotten", "Endless", "Shattered", 
     "Hidden", "Dark", "Eternal", "Broken", "Radiant", 
     "Cursed", "Whispering", "Fading", "Forsaken", "Crimson", 
-    "Lost", "Unspoken", "Haunting", "Enchanted", "Ancient"
+    "Lost", "Unspoken", "Haunting", "Enchanted", "Ancient",
+    "Luminous", "Glimmering", "Fierce", "Blazing", "Majestic",
+    "Sacred", "Shimmering", "Timeless", "Serene", "Fiery",
+    "Invisible", "Lurking", "Epic", "Sublime", "Wicked",
+    "Ancient", "Frosted", "Spectral", "Burnished", "Arcane",
+    "Imposing", "Mighty", "Fragrant", "Cavernous", "Celestial"
 ]
 
+
+# All possible base words for generating resource titles.
 BASEWORDS = [
     "Journey", "Secret", "Dream", "World", "Night", 
     "Path", "Legend", "Shadow", "Realm", "Heart", 
     "Soul", "Empire", "Throne", "Mystery", "Quest", 
     "Wings", "Fate", "Chronicles", "Tale", "Kingdom", 
-    "Rise", "Darkness", "Light", "Vengeance", "Power"
+    "Rise", "Darkness", "Light", "Vengeance", "Power", 
+    "Hope", "Victory", "Terror", "Storm", "Legacy", 
+    "Valor", "Destiny", "Revenge", "Phoenix", "Odyssey",
+    "Vow", "Rebirth", "Endeavor", "Horizon", "Eclipse", 
+    "Enigma", "Conquest", "Arcadia", "Freedom", "Triumph"
 ]
 
+# All possible publishers for resources.
 PUBLISHERS = [
     "Penguin Random House", "HarperCollins", "Simon & Schuster", 
     "Macmillan", "Hachette Book Group", "Oxford University Press", 
@@ -124,3 +165,43 @@ PUBLISHERS = [
     "Cambridge University Press", "Northwestern University Press", 
     "Harvard University Press"
 ]
+
+# All possible Distributors for digital disk.
+DISTRIBUTORS = [
+    "Warner Music Group",
+    "Universal Music Group",
+    "Sony Music Entertainment",
+    "Paramount Pictures",
+    "20th Century Studios",
+    "Lionsgate",
+    "Disney Media Distribution",
+    "MGM Studios",
+    "Netflix",
+    "Hulu",
+    "Amazon Prime Video",
+    "Apple TV+",
+    "Vudu",
+    "Redbox",
+    "Best Buy",
+    "Target",
+    "Walmart",
+    "FYE (For Your Entertainment)",
+    "Barnes & Noble",
+    "CD Projekt"
+]
+# All possible membership types.
+MEMBERSHIP_TYPES = ["Regular", "Student", "Senior"]
+
+# Age to be considered a senior.
+SENIOR_AGE = 65
+
+# CONSTANTS RESPONSIBLE FOR POPULATING DATA
+NUMBER_OF_RESOURCES = 10000
+NUMBER_OF_AUTHORS = 1000
+NUMBER_OF_MEMBERS = 1000
+NUMBER_OF_BORROWS = 2500 # Make sure this is less than the number of resources
+
+NUMBER_OF_ROOMS = 50
+MIN_CAPACITY = 1
+MAX_CAPACITY = 50
+NUMBER_OF_RESERVATIONS = 500

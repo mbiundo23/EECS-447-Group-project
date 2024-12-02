@@ -5,7 +5,6 @@ cursor = connection.cursor()
 commands = [
     """CREATE TABLE Room (
         RoomNumber INT PRIMARY KEY,
-        AvailabilityStatus BOOL,
         Capacity INT
     );""",
     """CREATE TABLE ResourceAuthor (
@@ -103,17 +102,9 @@ commands = [
         ReserveDate DATE,
         RoomNumber INT,
         MemberID INT,
-        PRIMARY KEY (ReserveDate, RoomNumber, MemberID),
+        PRIMARY KEY (ReserveDate, RoomNumber),
         FOREIGN KEY (RoomNumber) REFERENCES Room(RoomNumber),
         FOREIGN KEY (MemberID) REFERENCES Member(MemberID)
-    );""",
-    """CREATE TABLE Write (
-        Date DATE,
-        ResourceID INT,
-        AuthorID INT,
-        PRIMARY KEY (Date, ResourceID, AuthorID),
-        FOREIGN KEY (ResourceID) REFERENCES Resource(ResourceID),
-        FOREIGN KEY (AuthorID) REFERENCES Author(AuthorID)
     );"""
 ]
 
