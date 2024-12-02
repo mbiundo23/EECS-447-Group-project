@@ -7,9 +7,8 @@ we can create custom reports like
 
 
 def getMembersBorrows(member_id):
-    cursor.execute(IDK THE CODE BUT JOIN MEMBERID ON BORROWLOG AND GET ALL RESOURCEIDS)
-    return formatted resources ids
-
+    return cursor.execute(IDK THE CODE BUT JOIN MEMBERID ON BORROWLOG AND GET ALL RESOURCEIDS)
+    
 customCommands = {
     'get_borrows_from_member {member_id}': getMembersBorrows(member_id) 
 }
