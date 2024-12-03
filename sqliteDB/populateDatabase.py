@@ -164,9 +164,9 @@ def populate_digital_disk(resource_id):
 def populate_resource_author(number_of_resources, number_of_authors):
     for resource_id in range(1, number_of_resources+1):
         authors_used = set() # Keep track of authors already assigned to this resource_id
-        num_authors = random.randint(1, MAX_AUTHORS) # Randomly assign between 1 and MAX_AUTHORS authors to a resource
-        for _ in range(num_authors):
-            author_id = random.randint(1, number_of_authors) # Random author
+        authors_per_resource = random.randint(1, MAX_AUTHORS) # Randomly assign between 1 and MAX_AUTHORS authors to a resource
+        for _ in range(authors_per_resource):
+            author_id = random.randint(1, number_of_authors+1) # Random author
             if author_id not in authors_used: # Ensure author is not already associated with this resource.
                 cursor.execute(f"""
                     INSERT INTO ResourceAuthor (ResourceID, AuthorID) VALUES (
@@ -202,27 +202,28 @@ def populate_member(number_of_members):
 # Populate BorrowLog table
 def populate_borrow_log(number_of_borrows, number_of_members, number_of_resources):
     for borrow_id in range(1, number_of_borrows + 1):
-        member_id = random.randint(1, number_of_members)
-        resource_id = random.randint(1, number_of_resources)
+        member_id = random.randint(1, number_of_members+1)
+        resource_id = random.randint(1, number_of_resources+1)
         max_duration = random.randint(7, 30)
-        checkout_date = random_date(date(2023, 1, 1), date.today())
         
         # Randomly decide if the resource is returned
         is_returned_on_time = random.randint(0, 100)
-        if is_returned_on_time <= 90: # Turned in on time is 90% chance
+        if is_returned_on_time <= 83:  # Turned in on time (83% chance)
+            # Ensure checkout_date is not in the future
+            checkout_date = random_date(date(2023, 1, 1), date.today() - timedelta(days=max_duration))
             checkin_date = random_date(checkout_date, checkout_date + timedelta(days=max_duration))
-        elif is_returned_on_time <= 99: # Turned in late is 9% chance
-            checkin_date = random_date(checkout_date + timedelta(days=max_duration + 1), date.today())
-        else: # Not turned in is 1% chance
+        elif 83 < is_returned_on_time <= 93:  # Not returned but not late (10% chance)
+            # Generate checkout date (no checkin date)
+            checkout_date = random_date(date.today() - timedelta(days=max_duration), date.today())
             checkin_date = None
-       
-        """
-        User can:
-        Return on time
-        Return late
-        Not returned but late
-        Not returned but not late
-        """
+        elif 93 < is_returned_on_time <= 98:  # Returned late (5% chance)
+            # Ensure checkout_date is not in the future, and the late return is valid
+            checkout_date = random_date(date(2023, 1, 1), date.today() - timedelta(days=max_duration + 1))
+            checkin_date = random_date(checkout_date, date.today())
+        else:  # Not returned and late (2% chance)
+            # Ensure checkout_date is not in the future, and no checkin date
+            checkout_date = random_date(date(2023, 1, 1), date.today() - timedelta(days=max_duration + 1))
+            checkin_date = None
 
         # Insert the borrow log
         cursor.execute(f"""
@@ -255,7 +256,7 @@ def populate_reserve_room(number_of_reservations, number_of_rooms, number_of_mem
     unique_key = set() # Unique keys
     for num in range(1, number_of_reservations + 1):
         while True:
-            room_number = random.randint(1, number_of_rooms) # select a random room to be reserved for the day
+            room_number = random.randint(1, number_of_rooms+1) # select a random room to be reserved for the day
             reserve_date = random_date(date.today(), date.today() + timedelta(weeks=9)) # Allow for reservations up to 9 weeks in advance
             member_id = random.randint(1, number_of_members + 1) 
             if (reserve_date, room_number) not in unique_key:
