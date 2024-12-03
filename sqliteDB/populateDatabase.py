@@ -73,16 +73,19 @@ def populate_author(number_of_authors):
         first_name = random.choice(FIRST_NAMES) # Random first name
         last_name = random.choice(LAST_NAMES) # Random last name
         middle_initial = random.choice(MIDDLE_INITIALS) # Random niddle inital
-        middle_initial = None if middle_initial == "" else middle_initial # If empty middle initial then set to None.
-        cursor.execute(f"INSERT INTO Author VALUES ({author_id}, '{first_name}', '{last_name}', '{middle_initial}')")
-
+        cursor.execute(f"""
+                        INSERT INTO Author (AuthorID, FirstName, LastName, MiddleInitial) 
+                        VALUES ({author_id}, '{first_name}', '{last_name}', 
+                        {f"'{middle_initial}'" if middle_initial != '' else 'NULL'})
+                    """)
+        
 # Populate PhysicalBook table
 def populate_physical_book(resource_id):
     isbn = generate_isbn()
     title = generate_title() # Title generated
-    publication_year = random.randint(2000, 2024)
+    publication_year = random.randint(EARLIEST_PUBLICATION_YEAR, date.today().year)
     publisher = random.choice(PUBLISHERS)
-    page_count = random.randint(100, 1000)
+    page_count = random.randint(10, 1000)
     genre = random.choice(GENRES)
     cursor.execute(f"""
         INSERT INTO PhysicalBook VALUES (
@@ -94,7 +97,7 @@ def populate_physical_book(resource_id):
 def populate_audio_book(resource_id):
     isbn = generate_isbn()
     title = generate_title()
-    publication_year = random.randint(2000, 2024)
+    publication_year = random.randint(EARLIEST_PUBLICATION_YEAR, date.today().year)
     publisher = random.choice(PUBLISHERS)
     duration = random.randint(60, 300)  # Duration in minutes
     genre = random.choice(GENRES)
@@ -109,7 +112,7 @@ def populate_magazine(resource_id):
     issn = generate_issn()
     title = generate_title()
     issue_number = random.randint(1, 50)
-    publication_year = random.randint(2000, 2024)
+    publication_year = random.randint(EARLIEST_PUBLICATION_YEAR, date.today().year)
     publication_month = random.randint(1, 12)
     publisher = random.choice(PUBLISHERS)
     page_count = random.randint(30, 200)
@@ -124,7 +127,7 @@ def populate_magazine(resource_id):
 def populate_ebook(resource_id):
     isbn = generate_isbn()
     title = generate_title()
-    publication_year = random.randint(2000, 2024)
+    publication_year = random.randint(EARLIEST_PUBLICATION_YEAR, date.today().year)
     publisher = random.choice(PUBLISHERS)
     genre = random.choice(GENRES)
     cursor.execute(f"""
@@ -148,7 +151,7 @@ def populate_digital_disk(resource_id):
     title = generate_title()
     media_type = random.choice(MEDIA_TYPES)
     disk_type = random.choice(DIGITAL_DISK_TYPES)
-    release_year = random.randint(2000, 2024)
+    release_year = random.randint(EARLIEST_PUBLICATION_YEAR, date.today().year)
     distributor = random.choice(DISTRIBUTORS)
     genre = random.choice(GENRES)
     cursor.execute(f"""
@@ -161,7 +164,7 @@ def populate_digital_disk(resource_id):
 def populate_resource_author(number_of_resources, number_of_authors):
     for resource_id in range(1, number_of_resources+1):
         authors_used = set() # Keep track of authors already assigned to this resource_id
-        num_authors = random.randint(1, 5) # Randomly assign between 1 and 5 authors to a resource
+        num_authors = random.randint(1, MAX_AUTHORS) # Randomly assign between 1 and MAX_AUTHORS authors to a resource
         for _ in range(num_authors):
             author_id = random.randint(1, number_of_authors) # Random author
             if author_id not in authors_used: # Ensure author is not already associated with this resource.
@@ -175,14 +178,20 @@ def populate_resource_author(number_of_resources, number_of_authors):
 # Populate Member table
 def populate_member(number_of_members):
     for member_id in range(1, number_of_members+1): # Populate with given number of members
-        member_name = random.choice(FIRST_NAMES) + " " + random.choice(MIDDLE_INITIALS) + " " + random.choice(LAST_NAMES)
-        starting_date = random_date(date(2020, 1, 1), date(2024, 12, 31)).strftime('%Y-%m-%d')
-        birth_date = random_date(date(1900, 1, 1), date(2005, 12, 31))
-        age = (date(2024,12,31) - birth_date).days // 365 # Calculate approximate age, using a made up todays date.
-        birth_date = birth_date.strftime('%Y-%m-%d')
-        if age >= SENIOR_AGE:
-            membership_type = "Senior"
+        middle_initial = random.choice(MIDDLE_INITIALS)
+        if middle_initial:
+            member_name = f"{random.choice(FIRST_NAMES)} {middle_initial} {random.choice(LAST_NAMES)}"
         else:
+             member_name = f"{random.choice(FIRST_NAMES)} {random.choice(LAST_NAMES)}"
+        starting_date = random_date(date(2020, 1, 1), date.today()).strftime('%Y-%m-%d')
+        birth_date = random_date(date(1900, 1, 1), date.today())
+        age = (date.today() - birth_date).days // 365 # Calculate approximate age
+        birth_date = birth_date.strftime('%Y-%m-%d')
+        if age >= SENIOR_AGE: # Automatically grant seniors Senior status.
+            membership_type = "Senior"
+        elif 5 <= age <= 18: # Automatically grant young people Student status.
+            membership_type = "Student"
+        else: # Randomly assign regular or students, since students arent always neccessarily young.
             membership_type = random.choice([type for type in MEMBERSHIP_TYPES if type != "Senior"])
         cursor.execute(f"""
         INSERT INTO Member VALUES (
@@ -192,24 +201,33 @@ def populate_member(number_of_members):
 
 # Populate BorrowLog table
 def populate_borrow_log(number_of_borrows, number_of_members, number_of_resources):
-    for borrow_id in range(1, number_of_borrows+1):
-        member_id = random.randint(1, number_of_members+1)
-        resource_id = random.randint(1, number_of_resources+1) 
-        checkout_date = random_date(date(2023, 1, 1), date(2024, 12, 31)) # Generate a random checkout date
-        checkin_date = random_date(checkout_date, date(2024, 12, 31)) # Generate checkin_date after checkout_date
-        max_duration = random.randint(7, 30) # duration in days
+    for borrow_id in range(1, number_of_borrows + 1):
+        member_id = random.randint(1, number_of_members)
+        resource_id = random.randint(1, number_of_resources)
+        checkout_date = random_date(date(2023, 1, 1), date.today())
+        
+        # Randomly decide if the resource is returned
+        is_returned = random.choice([True, False])
+        checkin_date = (
+            random_date(checkout_date, date.today()) if is_returned else None
+        )
+        max_duration = random.randint(7, 30)
+        
+        # Insert the borrow log
         cursor.execute(f"""
             INSERT INTO BorrowLog VALUES (
-                {borrow_id}, {member_id}, {resource_id}, '{checkout_date}', '{checkin_date}', {max_duration}
+                {borrow_id}, {member_id}, {resource_id}, '{checkout_date}', 
+                {f"'{checkin_date}'" if checkin_date else 'NULL'}, {max_duration}
             )
         """)
 
-        # Update the availability of the resource to False (checked out)
-        cursor.execute(f"""
-            UPDATE Resource 
-            SET AvailabilityStatus = False 
-            WHERE ResourceID = {resource_id}
-        """)
+        # Update the availability status only if not returned
+        if not is_returned:
+            cursor.execute(f"""
+                UPDATE Resource 
+                SET AvailabilityStatus = False 
+                WHERE ResourceID = {resource_id}
+            """)
 
 # Populate Room table
 def populate_room(number_of_rooms, min_capacity, max_capacity):
@@ -227,7 +245,7 @@ def populate_reserve_room(number_of_reservations, number_of_rooms, number_of_mem
     for num in range(1, number_of_reservations + 1):
         while True:
             room_number = random.randint(1, number_of_rooms) # select a random room to be reserved for the day
-            reserve_date = random_date(date(2024, 1, 31), date(2024, 12, 31)).strftime('%Y-%m-%d') # Fixed date range
+            reserve_date = random_date(date.today(), date.today() + timedelta(weeks=9)) # Allow for reservations up to 9 weeks in advance
             member_id = random.randint(1, number_of_members + 1) 
             if (reserve_date, room_number) not in unique_key:
                 cursor.execute(f"""

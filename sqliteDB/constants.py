@@ -191,6 +191,12 @@ DISTRIBUTORS = [
 # All possible membership types.
 MEMBERSHIP_TYPES = ["Regular", "Student", "Senior"]
 
+# Earliest publication year
+EARLIEST_PUBLICATION_YEAR = 2000
+
+# Max authors assigned to a resource
+MAX_AUTHORS = 5
+
 # Age to be considered a senior.
 SENIOR_AGE = 65
 

@@ -52,6 +52,7 @@ def main():
                 print(f"Error executing query: {e}")
 
     # Close the database connection before exiting
+    connection.commit()
     connection.close()
 
 # Run the program
