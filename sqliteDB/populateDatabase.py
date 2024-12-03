@@ -204,15 +204,26 @@ def populate_borrow_log(number_of_borrows, number_of_members, number_of_resource
     for borrow_id in range(1, number_of_borrows + 1):
         member_id = random.randint(1, number_of_members)
         resource_id = random.randint(1, number_of_resources)
+        max_duration = random.randint(7, 30)
         checkout_date = random_date(date(2023, 1, 1), date.today())
         
         # Randomly decide if the resource is returned
-        is_returned = random.randint(0, 10)
-        checkin_date = (
-            random_date(checkout_date, date.today()) if is_returned < 9 else None
-        )
-        max_duration = random.randint(7, 30)
-        
+        is_returned_on_time = random.randint(0, 100)
+        if is_returned_on_time <= 90: # Turned in on time is 90% chance
+            checkin_date = random_date(checkout_date, checkout_date + timedelta(days=max_duration))
+        elif is_returned_on_time <= 99: # Turned in late is 9% chance
+            checkin_date = random_date(checkout_date + timedelta(days=max_duration + 1), date.today())
+        else: # Not turned in is 1% chance
+            checkin_date = None
+       
+        """
+        User can:
+        Return on time
+        Return late
+        Not returned but late
+        Not returned but not late
+        """
+
         # Insert the borrow log
         cursor.execute(f"""
             INSERT INTO BorrowLog VALUES (
@@ -222,7 +233,7 @@ def populate_borrow_log(number_of_borrows, number_of_members, number_of_resource
         """)
 
         # Update the availability status only if not returned
-        if not is_returned:
+        if not checkin_date:
             cursor.execute(f"""
                 UPDATE Resource 
                 SET AvailabilityStatus = False 
