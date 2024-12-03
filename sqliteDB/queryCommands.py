@@ -9,18 +9,31 @@ cursor = connection.cursor()
 def help(arguments=None):
     print("Available commands:")
     print("FORMAT: command_name {command_argument}")
-    print("FORMAT: Curly brackets are to show that it's a required argument.")
-    print(" - get_members: Get all members")
+    print("FORMAT: Arguments are required unless stated otherwise.")
+    print(" - get {table}: Select all from table")
     print(" - get_members_borrow_log {member_id}: Get a member's borrow log")
     print(" - get_overdue_borrow_logs: Get all overdue borrow logs")
     print(" - help: Show this help message")
     return None  # No result to return
 
 # Query to fetch all members
-def get_members(arguments=None):
-    cursor.execute("SELECT * FROM Member")
-    return cursor
+def get(arguments=None):
+    if arguments is None:
+        print("Usage: get {table}")
+        return None
 
+    args = arguments.split(" ", 1)
+    table = args[0] if len(args) > 0 else None
+
+    try:
+        # Query to fetch all from selected table
+        cursor.execute(f"""SELECT * FROM {table}""")
+        return cursor
+    except sqlite3.Error as e:
+        # Handle any database errors, including table not existing
+        print(f"Error executing query: {e}")
+        return None
+    
 # Query to fetch members borrow logs
 def get_members_borrow_log(arguments=None):
     # Ensure arguments are provided
@@ -66,7 +79,7 @@ def get_overdue_borrow_logs(arguments=None):
 # Command map
 command_map = {
     'help': help,
-    'get_members': get_members,
+    'get': get,
     'get_members_borrow_log': get_members_borrow_log,
     'get_overdue_borrow_logs': get_overdue_borrow_logs
 }

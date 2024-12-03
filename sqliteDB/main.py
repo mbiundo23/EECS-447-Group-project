@@ -48,7 +48,7 @@ def main():
                 for row in rows:
                     print(row)
             except sqlite3.Error as e:
-                # Handle invalid SQL query
+                # Handle invalid SQL query or other database errors
                 print(f"Error executing query: {e}")
 
     # Close the database connection before exiting
