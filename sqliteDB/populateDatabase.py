@@ -207,9 +207,9 @@ def populate_borrow_log(number_of_borrows, number_of_members, number_of_resource
         checkout_date = random_date(date(2023, 1, 1), date.today())
         
         # Randomly decide if the resource is returned
-        is_returned = random.choice([True, False])
+        is_returned = random.randint(0, 10)
         checkin_date = (
-            random_date(checkout_date, date.today()) if is_returned else None
+            random_date(checkout_date, date.today()) if is_returned < 9 else None
         )
         max_duration = random.randint(7, 30)
         
