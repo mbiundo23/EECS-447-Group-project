@@ -15,6 +15,13 @@ def help(arguments=None):
     print(" - get {table}: Select all from table")  
     print(" - get_members_borrow_log {member_id}: Get a member's borrow log")
     print(" - get_overdue_borrow_logs: Get all overdue borrow logs")
+    print(" - get_overdue_members: Get all members with an overdue borrow log")
+    print(" - get_author_books: {authorID} Get all books by a specified author")
+    print(" - add_member: {MemberName} {MembershipType} {StartingDate} {BirthDate} Add a member")
+    print(" - reserve_room: {ReserveDate} {RoomNumber} {MemberID} Reserve a room")
+    print(" - borrow_resource: {MemberID} {ResourceID} {CheckoutDate} {MaxDuration} Borrow a resource")
+    print(" - return_resource: {BorrowID} {CheckinDate} Return a resource")
+    print(" - get_available_resources: Get all available resources")
     print(" - help: Show this help message")
     return None  # No result is returned, just prints help information
 
@@ -89,12 +96,6 @@ def get_overdue_borrow_logs(arguments=None):
     return cursor  # Return the cursor to the result set
 
 # Command map to link command strings to their corresponding functions
-command_map = {
-    'help': help,  # Map 'help' command to the help function
-    'get': get,  # Map 'get' command to the get function
-    'get_members_borrow_log': get_members_borrow_log,  # Map 'get_members_borrow_log' to its function
-    'get_overdue_borrow_logs': get_overdue_borrow_logs  # Map 'get_overdue_borrow_logs' to its function
-}
 
 # Function to add a new member to the Member table
 def add_member(arguments=None):
@@ -294,3 +295,18 @@ def get_author_books(arguments=None):
         # Handle any database errors, such as invalid AuthorID or connection issues
         print(f"Error fetching author books: {e}")
     return None
+
+command_map = {
+    'help': help,  # Map 'help' command to the help function
+    'get': get,  # Map 'get' command to the get function
+    'get_members_borrow_log': get_members_borrow_log,  # Map 'get_members_borrow_log' to its function
+    'get_overdue_borrow_logs': get_overdue_borrow_logs,  # Map 'get_overdue_borrow_logs' to its function
+    'add_member': add_member,
+    'reserve_room': reserve_room,
+    'return_resource': return_resource,
+    'borrow_resource': borrow_resource,
+    'get_available_resources': get_available_resources,
+    'get_overdue_members': get_overdue_members,
+    'get_authors_books': get_author_books
+
+}
