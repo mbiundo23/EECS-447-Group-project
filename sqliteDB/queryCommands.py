@@ -247,9 +247,9 @@ def get_overdue_members(arguments=None):
         FROM BorrowLog
         INNER JOIN Member ON BorrowLog.MemberID = Member.MemberID
         WHERE 
-            (BorrowLog.CheckinDate IS NULL AND DATE(BorrowLog.CheckoutDate, '+' || BorrowLog.MaxDuration || ' days') < DATE('now'))  # Check if the borrow log is overdue and no check-in
+            (BorrowLog.CheckinDate IS NULL AND DATE(BorrowLog.CheckoutDate, '+' || BorrowLog.MaxDuration || ' days') < DATE('now'))  
             OR 
-            (BorrowLog.CheckinDate IS NOT NULL AND BorrowLog.CheckinDate > DATE(BorrowLog.CheckoutDate, '+' || BorrowLog.MaxDuration || ' days'))  # Check if the resource was returned late
+            (BorrowLog.CheckinDate IS NOT NULL AND BorrowLog.CheckinDate > DATE(BorrowLog.CheckoutDate, '+' || BorrowLog.MaxDuration || ' days'))  
     """)
     overdue_members = cursor.fetchall()  # Fetch all results of overdue members
 
