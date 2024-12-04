@@ -111,7 +111,7 @@ commands = [
     );"""
 ]
 
-# Execute all commands
+# Execute all commands, these create the tables we use that we made in part 4. 
 for command in commands:
     cursor.execute(command)
 

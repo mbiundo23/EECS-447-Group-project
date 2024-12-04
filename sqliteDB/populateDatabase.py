@@ -85,8 +85,8 @@ def populate_physical_book(resource_id):
     title = generate_title() # Title generated
     publication_year = random.randint(EARLIEST_PUBLICATION_YEAR, date.today().year)
     publisher = random.choice(PUBLISHERS)
-    page_count = random.randint(10, 1000)
-    genre = random.choice(GENRES)
+    page_count = random.randint(10, 1000) #Page count of 10-1000
+    genre = random.choice(GENRES) #Random choice of genre
     cursor.execute(f"""
         INSERT INTO PhysicalBook VALUES (
             {resource_id}, '{isbn}', '{title}', {publication_year}, '{publisher}', {page_count}, '{genre}'
@@ -97,10 +97,10 @@ def populate_physical_book(resource_id):
 def populate_audio_book(resource_id):
     isbn = generate_isbn()
     title = generate_title()
-    publication_year = random.randint(EARLIEST_PUBLICATION_YEAR, date.today().year)
-    publisher = random.choice(PUBLISHERS)
+    publication_year = random.randint(EARLIEST_PUBLICATION_YEAR, date.today().year) #random choice of publication year
+    publisher = random.choice(PUBLISHERS) #Random choice of publisher
     duration = random.randint(60, 300)  # Duration in minutes
-    genre = random.choice(GENRES)
+    genre = random.choice(GENRES) #Random choice of genre
     cursor.execute(f"""
         INSERT INTO Audiobook VALUES (
             {resource_id}, '{isbn}', '{title}', {publication_year}, '{publisher}', {duration}, '{genre}'
@@ -111,11 +111,11 @@ def populate_audio_book(resource_id):
 def populate_magazine(resource_id):
     issn = generate_issn()
     title = generate_title()
-    issue_number = random.randint(1, 50)
-    publication_year = random.randint(EARLIEST_PUBLICATION_YEAR, date.today().year)
-    publication_month = random.randint(1, 12)
-    publisher = random.choice(PUBLISHERS)
-    page_count = random.randint(30, 200)
+    issue_number = random.randint(1, 50) #Random issue number 1-50
+    publication_year = random.randint(EARLIEST_PUBLICATION_YEAR, date.today().year) #Random year 
+    publication_month = random.randint(1, 12) #Pick a random month 1-12
+    publisher = random.choice(PUBLISHERS) #Random choice of publisher
+    page_count = random.randint(30, 200) #pick a page count from 30-200
     genre = random.choice(MAGAZINE_GENRES)
     cursor.execute(f"""
         INSERT INTO Magazine VALUES (
@@ -127,9 +127,9 @@ def populate_magazine(resource_id):
 def populate_ebook(resource_id):
     isbn = generate_isbn()
     title = generate_title()
-    publication_year = random.randint(EARLIEST_PUBLICATION_YEAR, date.today().year)
-    publisher = random.choice(PUBLISHERS)
-    genre = random.choice(GENRES)
+    publication_year = random.randint(EARLIEST_PUBLICATION_YEAR, date.today().year) #Random publication year
+    publisher = random.choice(PUBLISHERS) #Random publisher 
+    genre = random.choice(GENRES) #Random genre
     cursor.execute(f"""
         INSERT INTO eBook VALUES (
             {resource_id}, '{isbn}', '{title}', {publication_year}, '{publisher}', '{genre}'
@@ -138,7 +138,7 @@ def populate_ebook(resource_id):
 
 # Populate Equipment table
 def populate_equipment(resource_id):
-    model = random.choice(EQUIPMENT_MODELS)
+    model = random.choice(EQUIPMENT_MODELS) #Ranomd equipment model
     cursor.execute(f"""
         INSERT INTO Equipment VALUES (
             {resource_id}, '{model}'
@@ -147,13 +147,13 @@ def populate_equipment(resource_id):
 
 # Populate DigitalDisk table
 def populate_digital_disk(resource_id):
-    issn = generate_issn()
-    title = generate_title()
-    media_type = random.choice(MEDIA_TYPES)
-    disk_type = random.choice(DIGITAL_DISK_TYPES)
-    release_year = random.randint(EARLIEST_PUBLICATION_YEAR, date.today().year)
-    distributor = random.choice(DISTRIBUTORS)
-    genre = random.choice(GENRES)
+    issn = generate_issn() #Generate an issn
+    title = generate_title() #Generate a title
+    media_type = random.choice(MEDIA_TYPES) #Random choice for media type
+    disk_type = random.choice(DIGITAL_DISK_TYPES) #Random choice for disk type
+    release_year = random.randint(EARLIEST_PUBLICATION_YEAR, date.today().year) #Random choice for release year
+    distributor = random.choice(DISTRIBUTORS) #Random choice for distributor
+    genre = random.choice(GENRES) #Random choice for genre
     cursor.execute(f"""
         INSERT INTO DigitalDisk VALUES (
             {resource_id}, '{issn}', '{title}', '{media_type}', '{disk_type}', {release_year}, '{distributor}', '{genre}'
@@ -258,11 +258,11 @@ def populate_reserve_room(number_of_reservations, number_of_rooms, number_of_mem
         while True:
             room_number = random.randint(1, number_of_rooms+1) # select a random room to be reserved for the day
             reserve_date = random_date(date.today(), date.today() + timedelta(weeks=9)) # Allow for reservations up to 9 weeks in advance
-            member_id = random.randint(1, number_of_members + 1) 
-            if (reserve_date, room_number) not in unique_key:
+            member_id = random.randint(1, number_of_members + 1) #add random number for memberid 
+            if (reserve_date, room_number) not in unique_key: #Insert unique values into ReserveRoom
                 cursor.execute(f"""
                     INSERT INTO ReserveRoom VALUES (
-                        '{reserve_date}', {room_number}, {member_id}
+                        '{reserve_date}', {room_number}, {member_id} 
                     )
                 """)
                 unique_key.add((reserve_date, room_number))
