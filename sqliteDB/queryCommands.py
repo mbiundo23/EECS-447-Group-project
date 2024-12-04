@@ -279,7 +279,7 @@ def get_author_books(arguments=None):
             LEFT JOIN PhysicalBook ON ResourceAuthor.ResourceID = PhysicalBook.ResourceID
             LEFT JOIN Audiobook ON ResourceAuthor.ResourceID = Audiobook.ResourceID
             LEFT JOIN eBook ON ResourceAuthor.ResourceID = eBook.ResourceID
-            WHERE ResourceAuthor.AuthorID = ?  # Search for resources related to the given author
+            WHERE ResourceAuthor.AuthorID = ? 
         """, (author_id,))
         author_books = cursor.fetchall()  # Fetch all books associated with the author
 
