@@ -175,6 +175,14 @@ def borrow_resource(arguments=None):
             INSERT INTO BorrowLog (MemberID, ResourceID, CheckoutDate, MaxDuration)
             VALUES (?, ?, ?, ?)
         """, (member_id, resource_id, checkout_date, max_duration))
+
+        # Update the resource's availability status
+        cursor.execute("""
+            UPDATE Resource
+            SET AvailabilityStatus = False
+            WHERE ResourceID = ?
+        """, (resource_id,))
+
         connection.commit()  # Commit the transaction
         print(f"Resource {resource_id} borrowed by member {member_id} on {checkout_date}.")  # Confirm success
     except sqlite3.Error as e:
@@ -198,12 +206,31 @@ def return_resource(arguments=None):
     borrow_id, checkin_date = args  # Assign extracted values to variables
 
     try:
+        # Fetch the ResourceID associated with the BorrowID
+        cursor.execute("""
+            SELECT ResourceID FROM BorrowLog WHERE BorrowID = ?
+        """, (borrow_id,))
+        result = cursor.fetchone()
+        if not result:
+            print(f"No borrow record found with ID {borrow_id}.")
+            return None
+
+        resource_id = result[0]
+
         # Update the borrow record with the check-in date
         cursor.execute("""
             UPDATE BorrowLog
             SET CheckinDate = ?
             WHERE BorrowID = ?
         """, (checkin_date, borrow_id))
+
+        # Update the resource's availability status
+        cursor.execute("""
+            UPDATE Resource
+            SET AvailabilityStatus = True
+            WHERE ResourceID = ?
+        """, (resource_id,))
+
         connection.commit()  # Commit the transaction
         print(f"Resource returned successfully with borrow ID {borrow_id} on {checkin_date}.")  # Confirm success
     except sqlite3.Error as e:
@@ -308,5 +335,4 @@ command_map = {
     'get_available_resources': get_available_resources,
     'get_overdue_members': get_overdue_members,
     'get_authors_books': get_author_books
-
 }
