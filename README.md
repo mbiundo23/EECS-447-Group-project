@@ -1,20 +1,28 @@
 EECS 447 - Team 6
 
-# Vision statement
+# Running The Database
+The database and all materials related to Part 5 are located in the **Part5_sqliteDB** directory.
+
+There are also instructions there (**Part5_sqliteDB/README.md**) on how to run the database.
+
+---
+# Project Part 1
+
+## Vision statement
 _Explain why you are developing the library database product._
 
 We are developing the library database product in effort to increase the efficiency of a local library, allowing them to spend less time organizing and searching, and more time providing their public service.
 
-# Scope statement
+## Scope statement
 _Define the scope of the project, indicating what will be completed._
 
 
   
-# Team organization and profiles
+## Team organization and profiles
 _Define the team organization and team member profiles. Assign roles for the team members, and designate one member as the team administrator.
 Team member profiles should include: names, contact information, availability, computing platform experience, and programming language knowledge. Adding photos is recommended for future reference._
 
-## Max Biundo
+### Max Biundo
 Role: Team Administrator
 
 Availability:
@@ -38,7 +46,7 @@ Programming Language Knowledge:
 Contact Information: (314)562-4809 / m679b014@home.ku.edu
 
 
-## Andrew Vanderwerf
+### Andrew Vanderwerf
 Role: 
 
 Availability: 
@@ -59,7 +67,7 @@ Programming Language Knowledge:
 Contact Information: andrewvander02@ku.edu
 
 
-## Mario Simental
+### Mario Simental
 Role: 
 
 Availability: 
@@ -80,7 +88,7 @@ Programming Language Knowledge:
 Contact Information: 
 - KU email: simentalma@ku.edu
 
-## Samuel Buehler
+### Samuel Buehler
 Role: 
 
 Availability: 
@@ -109,7 +117,7 @@ Programming Language Knowledge:
 Contact Information: 
 - KU email: samuel.buehler@ku.edu
 
-## Karsten Wolter
+### Karsten Wolter
 Role: 
 
 Availability: 
@@ -128,7 +136,7 @@ Programming Language Knowledge:
 Contact Information: 
 - KU email: karsten_wolter@ku.edu
 
-## Humza Qureshi
+### Humza Qureshi
 Role: Team database Architect
 
 Availability: 
@@ -150,7 +158,7 @@ Contact Information:
 - KU email: haqureshi@ku.edu
 
   
-# Weekly meetings
+## Weekly meetings
 _Decide on weekly meeting details: Provide the location, schedule, and methods for task allocation and tracking.
 Note: Each team member must contribute to the project and complete assigned tasks. Regular attendance at team meetings is mandatory.
 Communication and collaboration are essential for project success. Adhere to project deadlines and guidelines._
