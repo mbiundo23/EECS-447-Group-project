@@ -1,0 +1,172 @@
+1. Calculate fines owed by each member (Daily fine rate: $0.25 per day)
+
+SELECT  
+    m.MemberID,  
+    m.MemberName,  
+    SUM( 
+        (julianday('now') - julianday(b.CheckoutDate) - b.MaxDuration) * 0.25 
+    ) AS TotalFines 
+FROM  
+    BorrowLog b 
+JOIN 
+    Member m ON b.MemberID = m.MemberID 
+WHERE 
+    b.CheckinDate IS NULL 
+    AND julianday('now') - julianday(b.CheckoutDate) > b.MaxDuration 
+GROUP BY  
+    m.MemberID, m.MemberName;
+
+2. Physical Book, eBook, and Audiobook Availability (Genre: Mystery)
+
+SELECT 
+    pb.Title, pb.Genre, 'PhysicalBook' AS ResourceType 
+FROM 
+    PhysicalBook pb 
+JOIN  
+    Resource r ON pb.ResourceID = r.ResourceID 
+WHERE 
+    r.AvailabilityStatus = 1 
+    AND pb.Genre = 'Mystery' 
+
+UNION 
+
+SELECT 
+    eb.Title, eb.Genre, 'eBook' AS ResourceType 
+FROM 
+    eBook eb 
+JOIN 
+    Resource r ON eb.ResourceID = r.ResourceID 
+WHERE 
+    r.AvailabilityStatus = 1  
+    AND eb.Genre = 'Mystery' 
+
+UNION 
+
+SELECT 
+    ab.Title, ab.Genre, 'AudioBook' AS ResourceType 
+FROM 
+    Audiobook ab 
+JOIN 
+    Resource r ON ab.ResourceID = r.ResourceID 
+WHERE 
+    r.AvailabilityStatus = 1  
+    AND ab.Genre = 'Mystery';
+
+3. Frequent Borrowers of Crime in Physical Books, eBooks, and Audiobooks combined
+
+SELECT 
+    m.MemberID, 
+    m.MemberName, 
+    COUNT(*) AS BorrowCount 
+FROM 
+    BorrowLog b 
+JOIN  
+    Member m ON b.MemberID = m.MemberID 
+JOIN  
+    (SELECT ResourceID FROM PhysicalBook WHERE Genre = 'Crime' 
+     UNION 
+     SELECT ResourceID FROM eBook WHERE Genre = 'Crime' 
+     UNION 
+     SELECT ResourceID FROM Audiobook WHERE Genre = 'Crime') r 
+ON b.ResourceID = r.ResourceID 
+WHERE 
+    b.CheckoutDate >= DATE('now', '-1 year') 
+GROUP BY 
+    m.MemberID, m.MemberName 
+ORDER BY  
+    BorrowCount DESC 
+LIMIT 10;
+
+4. Sort Books Due Soon in a Week
+
+SELECT 
+    r.Title, 
+    m.MemberName, 
+    b.CheckoutDate, 
+    DATE(b.CheckoutDate, '+' || b.MaxDuration || ' day') AS DueDate 
+FROM 
+    BorrowLog b 
+JOIN 
+    Member m ON b.MemberID = m.MemberID 
+JOIN 
+    (SELECT ResourceID, Title FROM PhysicalBook 
+     UNION 
+     SELECT ResourceID, Title FROM eBook 
+     UNION 
+     SELECT ResourceID, Title FROM Audiobook) r 
+ON b.ResourceID = r.ResourceID 
+WHERE 
+    b.CheckinDate IS NULL 
+    AND DATE(b.CheckoutDate, '+' || b.MaxDuration || ' day') BETWEEN CURRENT_DATE AND DATE('now', '+7 days') 
+ORDER BY 
+    DueDate ASC;
+
+5. Members with Overdue Books
+
+SELECT 
+    m.MemberID, 
+    m.MemberName, 
+    GROUP_CONCAT(r.Title) AS OverdueBooks 
+FROM 
+    BorrowLog b 
+JOIN 
+    Member m ON b.MemberID = m.MemberID 
+JOIN 
+    (SELECT ResourceID, Title FROM PhysicalBook 
+     UNION 
+     SELECT ResourceID, Title FROM eBook 
+     UNION 
+     SELECT ResourceID, Title FROM Audiobook) r 
+ON b.ResourceID = r.ResourceID 
+WHERE 
+    b.CheckinDate IS NULL 
+    AND (julianday(CURRENT_DATE) - julianday(b.CheckoutDate)) > b.MaxDuration 
+GROUP BY 
+    m.MemberID, m.MemberName;
+
+6. Average Borrow Time for Fantasy eBooks, PhysicalBooks, and AudioBooks
+
+SELECT 
+    r.Genre, 
+    AVG(julianday(COALESCE(b.CheckinDate, CURRENT_DATE)) - julianday(b.CheckoutDate)) AS AvgBorrowTime 
+FROM 
+    BorrowLog b 
+JOIN 
+    (SELECT ResourceID, Genre FROM PhysicalBook 
+     UNION 
+     SELECT ResourceID, Genre FROM eBook 
+     UNION 
+     SELECT ResourceID, Genre FROM Audiobook) r 
+ON b.ResourceID = r.ResourceID 
+WHERE 
+    r.Genre = 'Fantasy'
+GROUP BY 
+    r.Genre;
+
+7. Most Popular Author from One Month
+
+SELECT 
+    a.FirstName, 
+    a.LastName, 
+    COUNT(*) AS BorrowCount 
+FROM  
+    BorrowLog b 
+JOIN  
+    (SELECT ra.ResourceID, ra.AuthorID FROM ResourceAuthor ra 
+     JOIN PhysicalBook pb ON ra.ResourceID = pb.ResourceID 
+     UNION 
+     SELECT ra.ResourceID, ra.AuthorID FROM ResourceAuthor ra 
+     JOIN eBook eb ON ra.ResourceID = eb.ResourceID 
+     UNION 
+     SELECT ra.ResourceID, ra.AuthorID FROM ResourceAuthor ra 
+     JOIN Audiobook ab ON ra.ResourceID = ab.ResourceID) r 
+ON b.ResourceID = r.ResourceID 
+JOIN  
+    Author a ON r.AuthorID = a.AuthorID 
+WHERE  
+    b.CheckoutDate >= DATE('now', '-1 month') 
+GROUP BY  
+    a.AuthorID, a.FirstName, a.LastName 
+ORDER BY  
+    BorrowCount DESC 
+LIMIT 1;
