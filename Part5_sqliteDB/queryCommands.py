@@ -22,6 +22,7 @@ def help(arguments=None):
     print(" - borrow_resource: {MemberID} {ResourceID} {CheckoutDate} {MaxDuration} Borrow a resource")
     print(" - return_resource: {BorrowID} {CheckinDate} Return a resource")
     print(" - get_available_resources: Get all available resources")
+    print(" - generateMemberEngagementReport: Prints a report regarding membership growth, member demographics, and power users.")
     print(" - help: Show this help message")
     return None  # No result is returned, just prints help information
 
@@ -323,6 +324,203 @@ def get_author_books(arguments=None):
         print(f"Error fetching author books: {e}")
     return None
 
+def generateMemberEngagementReport(arguments=None):
+    print("Member Engagement Report")
+    print("------------------------")
+
+    cursor.execute("""
+        SELECT strftime('%Y-%m', StartingDate) AS month, COUNT(MemberID) AS new_members 
+        FROM Member 
+        WHERE StartingDate >= date('now', '-1 year') 
+        GROUP BY strftime('%Y-%m', StartingDate) 
+        ORDER BY month;
+    """)
+    membershipGrowth = cursor.fetchall()  # Fetch all results of months
+
+    if membershipGrowth:
+        print("\nMonthly Membership Growth (past year):")
+        for entry in membershipGrowth:
+            print(f"{entry[0]}: {entry[1]}")
+    else:
+        # If no growth data can be calculated, notify the user
+        print("No growth data.")
+
+    # Get demographics (age)
+    cursor.execute("""
+        SELECT 
+            CASE 
+                WHEN strftime('%Y', 'now') - strftime('%Y', BirthDate) < 18 THEN 'Under 18' 
+                WHEN strftime('%Y', 'now') - strftime('%Y', BirthDate) BETWEEN 18 AND 35 THEN '18-35' 
+                WHEN strftime('%Y', 'now') - strftime('%Y', BirthDate) BETWEEN 36 AND 50 THEN '36-50' 
+                WHEN strftime('%Y', 'now') - strftime('%Y', BirthDate) BETWEEN 51 AND 65 THEN '51-65' 
+                ELSE '65+' 
+            END AS age_group, COUNT(MemberID) AS member_count 
+        FROM Member 
+        GROUP BY age_group 
+        ORDER BY member_count DESC;
+    """)
+    args = cursor.fetchall()
+
+    if args:
+        print("\nDemographic Information (members by age group):")
+        for arg in args:
+            print(f"{arg[0]}: {arg[1]}")
+    else:
+        print("No demographic data.")
+
+    # Print borrow counts by genre
+    # Check for physical books
+    print("\nTotal borrows per genre:")
+    borrowsPerGenre = {}
+    cursor.execute("""
+        SELECT 
+            pb.Genre, 
+            COUNT(bl.ResourceID) AS total_borrowings 
+        FROM 
+            BorrowLog bl 
+        JOIN 
+            Resource r ON bl.ResourceID = r.ResourceID 
+        JOIN 
+            PhysicalBook pb ON bl.ResourceID = pb.ResourceID 
+        WHERE 
+            r.AvailabilityStatus = 1 
+        GROUP BY 
+            pb.Genre 
+        ORDER BY 
+            total_borrowings DESC; 
+    """)
+    args = cursor.fetchall()
+
+    if args:
+        for arg in args:
+            borrowsPerGenre[arg[0]] = arg[1]
+
+    cursor.execute("""
+        SELECT 
+            ab.Genre, 
+            COUNT(bl.ResourceID) AS total_borrowings 
+        FROM 
+            BorrowLog bl 
+        JOIN 
+            Resource r ON bl.ResourceID = r.ResourceID 
+        JOIN 
+            Audiobook ab ON bl.ResourceID = ab.ResourceID 
+        WHERE 
+            r.AvailabilityStatus = 1 
+        GROUP BY 
+            ab.Genre 
+        ORDER BY 
+            total_borrowings DESC; 
+    """)
+    args = cursor.fetchall()
+
+    if args:
+        for arg in args:
+            if arg[0] in borrowsPerGenre.keys(): # if genre is already in dict
+                borrowsPerGenre.update({arg[0]: borrowsPerGenre[arg[0]] + arg[1]})
+            else:
+                borrowsPerGenre[arg[0]] = arg[1]
+
+    cursor.execute("""
+        SELECT 
+            mag.Genre, 
+            COUNT(bl.ResourceID) AS total_borrowings 
+        FROM 
+            BorrowLog bl 
+        JOIN 
+            Resource r ON bl.ResourceID = r.ResourceID 
+        JOIN 
+            Magazine mag ON bl.ResourceID = mag.ResourceID 
+        WHERE 
+            r.AvailabilityStatus = 1 
+        GROUP BY 
+            mag.Genre 
+        ORDER BY 
+            total_borrowings DESC; 
+    """)
+    args = cursor.fetchall()
+
+    if args:
+        for arg in args:
+            if arg[0] in borrowsPerGenre.keys(): # if genre is already in dict
+                borrowsPerGenre.update({arg[0]: borrowsPerGenre[arg[0]] + arg[1]})
+            else:
+                borrowsPerGenre[arg[0]] = arg[1]
+
+    cursor.execute("""
+        SELECT 
+            eb.Genre, 
+            COUNT(bl.ResourceID) AS total_borrowings 
+        FROM 
+            BorrowLog bl 
+        JOIN 
+            Resource r ON bl.ResourceID = r.ResourceID 
+        JOIN 
+            eBook eb ON bl.ResourceID = eb.ResourceID 
+        WHERE 
+            r.AvailabilityStatus = 1 
+        GROUP BY 
+            eb.Genre 
+        ORDER BY 
+            total_borrowings DESC; 
+    """)
+    args = cursor.fetchall()
+
+    if args:
+        for arg in args:
+            if arg[0] in borrowsPerGenre.keys(): # if genre is already in dict
+                borrowsPerGenre.update({arg[0]: borrowsPerGenre[arg[0]] + arg[1]})
+            else:
+                borrowsPerGenre[arg[0]] = arg[1]
+
+    cursor.execute("""
+        SELECT 
+            dd.Genre, 
+            COUNT(bl.ResourceID) AS total_borrowings 
+        FROM 
+            BorrowLog bl 
+        JOIN 
+            Resource r ON bl.ResourceID = r.ResourceID 
+        JOIN 
+            DigitalDisk dd ON bl.ResourceID = dd.ResourceID 
+        WHERE 
+            r.AvailabilityStatus = 1 
+        GROUP BY 
+            dd.Genre 
+        ORDER BY 
+            total_borrowings DESC; 
+    """)
+    args = cursor.fetchall()
+
+    if args:
+        for arg in args:
+            if arg[0] in borrowsPerGenre.keys(): # if genre is already in dict
+                borrowsPerGenre.update({arg[0]: borrowsPerGenre[arg[0]] + arg[1]})
+            else:
+                borrowsPerGenre[arg[0]] = arg[1]
+
+    # Print data
+    for key in borrowsPerGenre:
+        print(f"{key}: {borrowsPerGenre.get(key)}")
+
+    # 
+    cursor.execute("""
+        SELECT b.MemberID, m.MemberName, COUNT(*) AS TotalBorrows 
+        FROM BorrowLog b 
+        JOIN Member m ON b.MemberID = m.MemberID 
+        GROUP BY b.MemberID, m.MemberName 
+        ORDER BY TotalBorrows DESC LIMIT 10;
+    """)
+    args = cursor.fetchall()
+
+    if args:
+        print("\nTop 10 Power Users:")
+        for arg in args:
+            print(f"{arg[1]} ({arg[0]}): {arg[2]}")
+
+    print("------------------------")
+    print("(End of report)")
+
 command_map = {
     'help': help,  # Map 'help' command to the help function
     'get': get,  # Map 'get' command to the get function
@@ -334,5 +532,6 @@ command_map = {
     'borrow_resource': borrow_resource,
     'get_available_resources': get_available_resources,
     'get_overdue_members': get_overdue_members,
-    'get_authors_books': get_author_books
+    'get_authors_books': get_author_books,
+    'generateMemberEngagementReport': generateMemberEngagementReport
 }
